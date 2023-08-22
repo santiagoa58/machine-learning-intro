@@ -1,0 +1,2 @@
+# ignores downloaded data (like aclImdb) and model checkpoints
+*/*/aclImdb
