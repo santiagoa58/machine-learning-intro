@@ -1,2 +1,4 @@
 # ignores downloaded data (like aclImdb) and model checkpoints
 */*/aclImdb
+.DS_Store
+.ipynb_checkpoints
