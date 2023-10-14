@@ -64,8 +64,15 @@ def train_model(model, X, y):
     """
     Train SVM model on LFW dataset.
     """
-    model.fit(X, y)
-    return model
+    param_grid = {
+        "svc__C": [1, 10, 20, 30, 50],
+        "svc__gamma": [0.001, 0.01, 0.1],
+    }
+    grid = GridSearchCV(model, param_grid, cv=2)
+    grid.fit(X, y)
+    print(f"Best cross-validation accuracy: {grid.best_score_}")
+    print(f"Best parameters: {grid.best_params_}")
+    return grid.best_estimator_
 
 
 def evaluate_model(model, X, y):
