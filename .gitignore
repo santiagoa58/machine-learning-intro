@@ -2,3 +2,5 @@
 */*/aclImdb
 .DS_Store
 .ipynb_checkpoints
+mlenv/*
+*/*/sklearn-datasets
