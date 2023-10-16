@@ -97,7 +97,7 @@ def create_model():
     Create SVM model with dimensionality reduction to improve performance
     """
     svc = SVC(kernel="linear", class_weight="balanced")
-    pca = PCA(n_components=250, whiten=True)
+    pca = PCA(n_components=150, whiten=True)
     model = make_pipeline(pca, svc)
     return model
 
