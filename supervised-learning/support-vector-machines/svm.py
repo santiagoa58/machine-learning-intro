@@ -138,15 +138,33 @@ def evaluate_model(model, X, y, target_names=None):
     )
 
 
-def predict_similarity(model, user_upload, n=3):
+def predict_similarity(model, user_upload, X_train, n=3):
     """
-    Predict 1-3 most similar faces to uploaded image.
+    Predict n most similar faces to uploaded image.
+
+    Args:
+        model: Trained pipeline with PCA and SVC
+        user_upload: Preprocessed user image (1 x n_features)
+        X_train: Training data used to fit the model
+        n: Number of most similar faces to return
+
+    Returns:
+        Indices of the n most similar training samples
     """
-    result = model.predict(user_upload)
-    distances = model.decision_function(user_upload)
-    # Find top 3 similar faces based on distance metric
-    most_similar = np.argsort(distances[0])[-n:]
-    return most_similar
+    # Extract the PCA component from the pipeline
+    pca = model.named_steps['pca']
+
+    # Transform both user upload and training data to PCA space
+    user_pca = pca.transform(user_upload)
+    X_train_pca = pca.transform(X_train)
+
+    # Calculate Euclidean distances between user upload and all training samples
+    distances = np.linalg.norm(X_train_pca - user_pca, axis=1)
+
+    # Find indices of n closest training samples (smallest distances)
+    most_similar_indices = np.argsort(distances)[:n]
+
+    return most_similar_indices
 
 
 def main(user_upload):
@@ -170,8 +188,8 @@ def main(user_upload):
     )
     print(f"Testing set model score: {test_score}")
     print("Predicting similarity...")
-    most_similar = predict_similarity(model, processed_user_upload)
-    most_similar_names = data["target_names"][most_similar]
+    most_similar = predict_similarity(model, processed_user_upload, data["X_train"])
+    most_similar_names = data["target_names"][data["y_train"][most_similar]]
     print(f"Most similar faces: {most_similar_names}")
 
 
