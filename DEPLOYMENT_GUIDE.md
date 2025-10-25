@@ -1,5 +1,13 @@
 # Deployment Guide - Vercel Free Tier
 
+## Tech Stack (Latest Stable Versions)
+
+- **Next.js 16.0.0** - Latest with Turbopack bundler
+- **React 19.2.0** - Latest stable React
+- **Tailwind CSS v4** - Latest with new PostCSS architecture
+- **TypeScript 5** - Latest stable TypeScript
+- **App Router** - Modern React Server Components pattern
+
 ## Quick Start (5 minutes)
 
 ### Step 1: Push to GitHub

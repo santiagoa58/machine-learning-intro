@@ -16,11 +16,12 @@ Transform ML learning from passive Jupyter notebooks to an interactive web platf
 - **Secondary:** Implement spaced repetition and progress tracking
 - **Tertiary:** Build community features and advanced analytics
 
-### Tech Stack
-- **Frontend:** Next.js 14, React, TypeScript
-- **Styling:** Tailwind CSS (using Compass template from Tailwind Plus)
+### Tech Stack (Latest Stable Versions)
+- **Frontend:** Next.js 16.0.0, React 19.2.0, TypeScript 5
+- **Styling:** Tailwind CSS v4 (using Compass template from Tailwind Plus)
+- **Bundler:** Turbopack (Next.js built-in, replaces webpack)
 - **Content:** MDX for interactive tutorials
-- **Backend:** Next.js API routes
+- **Backend:** Next.js API routes (App Router)
 - **Database:** (TBD - PostgreSQL/Supabase for user progress)
 - **Deployment:** Vercel
 - **Code Execution:** Pyodide (Python in browser)
@@ -147,7 +148,7 @@ Stories:
 - Story Points: 5
 - Sprint: Sprint 1
 - Tasks:
-  - [TASK-20] ⚪ Initialize Next.js 14 project with TypeScript (1 point)
+  - [TASK-20] ⚪ Initialize Next.js 16 project with TypeScript (1 point)
   - [TASK-21] ⚪ Set up Tailwind CSS with Compass template integration (2 points)
   - [TASK-22] ⚪ Configure project structure (app/, components/, lib/, etc.) (1 point)
   - [TASK-23] ⚪ Set up ESLint, Prettier, Git hooks (1 point)
@@ -597,7 +598,7 @@ None currently
 - [TASK-133] ✅ Create JIRA.md task tracker
 - [TASK-134] ⚪ Review and finalize web app architecture
 - [TASK-135] ⚪ Set up development environment
-- [TASK-136] 🟡 Initialize Next.js 14 project with TypeScript (2 points)
+- [TASK-136] ✅ Initialize Next.js 16 project with TypeScript (2 points)
 - [TASK-137] 🟡 Set up basic project structure and routing (2 points)
 - [TASK-138] 🟡 Create homepage with links to existing content (1 point)
 - [TASK-139] 🟡 Add documentation pages (README, Guidelines) (1 point)
@@ -715,8 +716,9 @@ A story is complete when:
 ## 📖 Resources
 
 ### Documentation
-- [Next.js 14 Docs](https://nextjs.org/docs)
-- [Tailwind CSS Docs](https://tailwindcss.com/docs)
+- [Next.js 16 Docs](https://nextjs.org/docs) - Latest with Turbopack
+- [React 19 Docs](https://react.dev/) - Latest React documentation
+- [Tailwind CSS v4 Docs](https://tailwindcss.com/docs) - Latest Tailwind
 - [MDX Documentation](https://mdxjs.com/)
 - [Pyodide Docs](https://pyodide.org/en/stable/)
 - [Learning Science Research](./LEARNING_SCIENCE_REVIEW.md)
@@ -750,11 +752,11 @@ A story is complete when:
 
 ### Immediate (This Week)
 1. ✅ Review and approve JIRA.md structure
-2. 🟡 Initialize Next.js 14 project with TypeScript
-3. 🟡 Set up basic project structure and routing
-4. 🟡 Create homepage with links to existing content
+2. ✅ Initialize Next.js 16 project with TypeScript & latest React 19
+3. ✅ Set up basic project structure and routing
+4. ✅ Create homepage with links to existing content
 5. 🟡 Configure and deploy to Vercel free tier
-6. 🟡 Set up Playwright for UI testing
+6. ⚪ Set up Playwright for UI testing (after deployment)
 7. ⚪ Extract Compass template from zip file (deferred to Sprint 1)
 
 ### This Sprint (Week 1-2)
