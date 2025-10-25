@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Learning Science Review",
+  description: "Expert analysis of our tutorial approach from cognitive psychology and learning science perspectives.",
+  openGraph: {
+    title: "Learning Science Review | ML Introduction",
+    description: "Expert analysis of our tutorial approach from cognitive psychology and learning science perspectives.",
+    type: "article",
+  },
+};
+
 export default function LearningSciencePage() {
   return (
     <article>

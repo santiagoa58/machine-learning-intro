@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Project Overview & Setup",
+  description: "Learn how to get started with our comprehensive machine learning tutorial platform. Installation guide, learning paths, and project structure.",
+  openGraph: {
+    title: "Project Overview & Setup | ML Introduction",
+    description: "Get started with hands-on machine learning tutorials",
+    type: "article",
+  },
+};
+
 export default function ReadmePage() {
   return (
     <>

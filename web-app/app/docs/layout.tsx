@@ -6,33 +6,40 @@ export default function DocsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-page-gradient">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Back to Home */}
         <Link
           href="/"
-          className="inline-flex items-center text-blue-600 dark:text-blue-400 hover:underline mb-6"
+          className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline mb-6 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
+          aria-label="Navigate back to home page"
         >
           ← Back to Home
         </Link>
 
         {/* Main Content */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 md:p-12">
-          <article className="prose prose-lg dark:prose-invert max-w-none">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8 md:p-12">
+          <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto">
             {children}
           </article>
         </div>
 
         {/* Documentation Navigation */}
-        <nav className="mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <nav
+          className="mt-6 sm:mt-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg p-4 sm:p-6"
+          aria-label="Documentation navigation"
+        >
+          <h2
+            id="docs-nav-heading"
+            className="text-lg font-semibold text-gray-900 dark:text-white mb-4"
+          >
             Documentation
-          </h3>
-          <ul className="space-y-2">
+          </h2>
+          <ul className="space-y-2" aria-labelledby="docs-nav-heading" role="list">
             <li>
               <Link
                 href="/docs/readme"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
               >
                 Project Overview & Setup
               </Link>
@@ -40,7 +47,7 @@ export default function DocsLayout({
             <li>
               <Link
                 href="/docs/guidelines"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
               >
                 Project Guidelines
               </Link>
@@ -48,7 +55,7 @@ export default function DocsLayout({
             <li>
               <Link
                 href="/docs/learning-science"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
               >
                 Learning Science Review
               </Link>
@@ -56,7 +63,7 @@ export default function DocsLayout({
             <li>
               <Link
                 href="/docs/improvement-guide"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
               >
                 Improvement Guide
               </Link>
@@ -64,7 +71,7 @@ export default function DocsLayout({
             <li>
               <Link
                 href="/docs/jira"
-                className="text-blue-600 dark:text-blue-400 hover:underline"
+                className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
               >
                 Task Tracker (JIRA)
               </Link>

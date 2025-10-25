@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Improvement Guide",
+  description: "Practical templates and examples for implementing active learning principles in ML tutorials.",
+  openGraph: {
+    title: "Improvement Guide | ML Introduction",
+    description: "Practical templates and examples for implementing active learning principles in ML tutorials.",
+    type: "article",
+  },
+};
+
 export default function ImprovementGuidePage() {
   return (
     <article>

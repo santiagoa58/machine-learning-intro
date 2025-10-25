@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Task Tracker",
+  description: "Project roadmap, sprint plans, and task tracking for the ML tutorial platform development.",
+  openGraph: {
+    title: "Task Tracker | ML Introduction",
+    description: "Project roadmap, sprint plans, and task tracking for the ML tutorial platform development.",
+    type: "article",
+  },
+};
+
 export default function JiraPage() {
   return (
     <article>

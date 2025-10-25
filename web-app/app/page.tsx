@@ -2,54 +2,54 @@ import Link from 'next/link';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800">
-      <main className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-page-gradient">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold text-gray-900 dark:text-white mb-4">
+        <header className="text-center mb-12 sm:mb-16">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Machine Learning Introduction
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-700 dark:text-gray-200 max-w-2xl mx-auto">
             A comprehensive, hands-on introduction to machine learning that prioritizes
             understanding through application.
           </p>
-        </div>
+        </header>
 
         {/* Philosophy */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-12">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8 mb-8 sm:mb-12" aria-labelledby="philosophy-heading">
+          <h2 id="philosophy-heading" className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white mb-4">
             Learn by Doing, Understand by Exploring
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 mb-4">
+          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-200 mb-4">
             This isn't your typical ML tutorial that starts with pages of mathematics and theory.
             Instead, we believe the best way to learn machine learning is to:
           </p>
-          <ol className="list-decimal list-inside space-y-2 text-gray-700 dark:text-gray-300 ml-4">
+          <ol className="list-decimal list-inside space-y-3 text-base sm:text-lg text-gray-800 dark:text-gray-200 ml-2 sm:ml-4">
             <li><strong>See it work first</strong> - Start with a real application and get results</li>
             <li><strong>Understand what it does</strong> - Explore the behavior and capabilities</li>
             <li><strong>Learn why it works</strong> - Dive into the theory with context and motivation</li>
             <li><strong>Master the details</strong> - Deep dive into the mathematics and implementation</li>
           </ol>
-        </div>
+        </section>
 
         {/* Current Status */}
-        <div className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-6 mb-12">
-          <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
+        <aside className="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 p-4 sm:p-6 mb-8 sm:mb-12" role="note" aria-label="Development status">
+          <h3 className="text-base sm:text-lg font-semibold text-yellow-800 dark:text-yellow-300 mb-2">
             🚧 Platform Under Development
           </h3>
-          <p className="text-yellow-700 dark:text-yellow-200">
+          <p className="text-sm sm:text-base text-yellow-800 dark:text-yellow-100">
             We're currently building an interactive web platform to transform these tutorials
             into an engaging learning experience with code execution, quizzes, and spaced repetition.
           </p>
-        </div>
+        </aside>
 
         {/* Available Content */}
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-12">
           {/* Supervised Learning */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8" aria-labelledby="supervised-learning-heading">
+            <h2 id="supervised-learning-heading" className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Supervised Learning
-            </h3>
+            </h2>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <span className="text-green-500 mr-2">✓</span>
@@ -80,18 +80,18 @@ export default function Home() {
                 </div>
               </li>
             </ul>
-          </div>
+          </section>
 
           {/* Project Documentation */}
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+          <nav className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8" aria-labelledby="documentation-heading">
+            <h2 id="documentation-heading" className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-4">
               Project Documentation
-            </h3>
-            <ul className="space-y-3">
+            </h2>
+            <ul className="space-y-2" role="list">
               <li>
                 <Link
                   href="/docs/readme"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
                 >
                   → Project Overview & Setup
                 </Link>
@@ -99,7 +99,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/docs/guidelines"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
                 >
                   → Project Guidelines
                 </Link>
@@ -107,7 +107,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/docs/learning-science"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
                 >
                   → Learning Science Review
                 </Link>
@@ -115,7 +115,7 @@ export default function Home() {
               <li>
                 <Link
                   href="/docs/improvement-guide"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
                 >
                   → Improvement Guide
                 </Link>
@@ -123,57 +123,60 @@ export default function Home() {
               <li>
                 <Link
                   href="/docs/jira"
-                  className="text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
                 >
                   → Task Tracker (JIRA)
                 </Link>
               </li>
             </ul>
-          </div>
+          </nav>
         </div>
 
         {/* Key Features */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
-          <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <section className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 sm:p-8" aria-labelledby="features-heading">
+          <h2 id="features-heading" className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-6">
             Coming Soon: Interactive Features
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
+          </h2>
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                🧠 Active Learning
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <span aria-hidden="true">🧠</span> Active Learning
+              </h3>
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                 Retrieval practice, completion problems, and interactive quizzes
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                💻 Code Execution
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <span aria-hidden="true">💻</span> Code Execution
+              </h3>
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                 Run Python code directly in your browser with Pyodide
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                📊 Progress Tracking
-              </h4>
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                <span aria-hidden="true">📊</span> Progress Tracking
+              </h3>
+              <p className="text-sm sm:text-base text-gray-700 dark:text-gray-300">
                 Track your learning journey and spaced repetition schedule
               </p>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Footer */}
-        <footer className="text-center mt-16 text-gray-600 dark:text-gray-400">
-          <p>Built with Next.js 14, Tailwind CSS, and a passion for effective learning</p>
+        <footer className="text-center mt-16 text-gray-600 dark:text-gray-400" role="contentinfo">
+          <p className="text-sm sm:text-base">
+            Built with Next.js 16, React 19, Tailwind CSS v4, and a passion for effective learning
+          </p>
           <p className="mt-2">
             <a
               href="https://github.com/santiagoa58/machine-learning-intro"
-              className="text-blue-600 dark:text-blue-400 hover:underline"
+              className="inline-flex items-center min-h-[44px] text-blue-600 dark:text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-2"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="View source code on GitHub (opens in new tab)"
             >
               View on GitHub
             </a>

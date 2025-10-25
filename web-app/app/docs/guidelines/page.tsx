@@ -1,3 +1,15 @@
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Project Guidelines",
+  description: "Teaching philosophy, content standards, and learning science principles for creating effective ML tutorials.",
+  openGraph: {
+    title: "Project Guidelines | ML Introduction",
+    description: "Teaching philosophy, content standards, and learning science principles for creating effective ML tutorials.",
+    type: "article",
+  },
+};
+
 export default function GuidelinesPage() {
   return (
     <article>
