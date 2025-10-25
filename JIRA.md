@@ -597,19 +597,30 @@ None currently
 - [TASK-133] ✅ Create JIRA.md task tracker
 - [TASK-134] ⚪ Review and finalize web app architecture
 - [TASK-135] ⚪ Set up development environment
-- [TASK-136] ⚪ Extract Compass template from zip file
-- [TASK-137] ⚪ Create detailed technical specification document
-- [TASK-138] ⚪ Plan database schema
-- [TASK-139] ⚪ Define API endpoints
-- [TASK-140] ⚪ Create component hierarchy diagram
-- [TASK-141] ⚪ Write first tutorial in MDX format (proof of concept)
+- [TASK-136] 🟡 Initialize Next.js 14 project with TypeScript (2 points)
+- [TASK-137] 🟡 Set up basic project structure and routing (2 points)
+- [TASK-138] 🟡 Create homepage with links to existing content (1 point)
+- [TASK-139] 🟡 Add documentation pages (README, Guidelines) (1 point)
+- [TASK-140] 🟡 Configure Vercel deployment settings (1 point)
+- [TASK-141] 🟡 Deploy initial version to Vercel free tier (1 point)
+- [TASK-142] 🟡 Set up Playwright for UI testing (2 points)
+- [TASK-143] ⚪ Extract Compass template from zip file
+- [TASK-144] ⚪ Create detailed technical specification document
+- [TASK-145] ⚪ Plan database schema
+- [TASK-146] ⚪ Define API endpoints
+- [TASK-147] ⚪ Create component hierarchy diagram
+- [TASK-148] ⚪ Write first tutorial in MDX format (proof of concept)
 
 **Acceptance Criteria:**
 - [ ] All documentation complete and reviewed
 - [ ] Architecture decisions documented
 - [ ] Development environment ready
-- [ ] Compass template integrated and tested
-- [ ] One complete tutorial in MDX format
+- [ ] Basic Next.js app deployed to Vercel
+- [ ] Vercel deployment URL accessible
+- [ ] Playwright can access and test the UI
+- [ ] Homepage displays existing content links
+- [ ] Compass template integrated and tested (deferred to Sprint 1)
+- [ ] One complete tutorial in MDX format (deferred to Sprint 1)
 
 **Sprint Review Date:** End of Week 2
 
@@ -738,23 +749,28 @@ A story is complete when:
 ## 🚀 Next Actions
 
 ### Immediate (This Week)
-1. ⚪ Review and approve JIRA.md structure
-2. ⚪ Extract Compass template from zip file
-3. ⚪ Initialize Next.js project
-4. ⚪ Set up Tailwind with Compass integration
-5. ⚪ Create basic project structure
+1. ✅ Review and approve JIRA.md structure
+2. 🟡 Initialize Next.js 14 project with TypeScript
+3. 🟡 Set up basic project structure and routing
+4. 🟡 Create homepage with links to existing content
+5. 🟡 Configure and deploy to Vercel free tier
+6. 🟡 Set up Playwright for UI testing
+7. ⚪ Extract Compass template from zip file (deferred to Sprint 1)
 
 ### This Sprint (Week 1-2)
-1. Complete Sprint 0 tasks
-2. Write technical specification
-3. Design database schema
-4. Create one proof-of-concept tutorial in MDX
+1. ✅ Create comprehensive task tracker (JIRA.md)
+2. 🟡 Deploy basic Next.js site to Vercel
+3. ⚪ Extract and review Compass template
+4. ⚪ Write technical specification
+5. ⚪ Design database schema
+6. ⚪ Create one proof-of-concept tutorial in MDX
 
 ### Next Sprint (Week 3-4)
-1. Build core web app infrastructure
-2. Implement Compass template design
+1. Integrate Compass template design
+2. Build core web app infrastructure
 3. Set up MDX tutorial system
 4. Integrate Pyodide for code execution
+5. Implement first interactive learning components
 
 ---
 
