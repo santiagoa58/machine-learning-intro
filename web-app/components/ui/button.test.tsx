@@ -17,13 +17,15 @@ describe('Button Component', () => {
   it('should render with primary variant', () => {
     render(<Button variant="default">Primary</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-primary');
+    expect(button).toHaveClass('bg-gray-950');
+    expect(button).toHaveClass('rounded-full');
   });
 
   it('should render with destructive variant', () => {
     render(<Button variant="destructive">Delete</Button>);
     const button = screen.getByRole('button');
-    expect(button).toHaveClass('bg-destructive');
+    expect(button).toHaveClass('bg-red-600');
+    expect(button).toHaveClass('rounded-full');
   });
 
   it('should render with outline variant', () => {
@@ -35,11 +37,13 @@ describe('Button Component', () => {
   it('should render with different sizes', () => {
     const { rerender } = render(<Button size="sm">Small</Button>);
     let button = screen.getByRole('button');
-    expect(button).toHaveClass('h-9');
+    expect(button).toHaveClass('px-3');
+    expect(button).toHaveClass('text-xs');
 
     rerender(<Button size="lg">Large</Button>);
     button = screen.getByRole('button');
-    expect(button).toHaveClass('h-11');
+    expect(button).toHaveClass('px-4');
+    expect(button).toHaveClass('py-2.5');
   });
 
   it('should render as disabled', () => {
