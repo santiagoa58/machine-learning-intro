@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
 
 export const metadata: Metadata = {
   title: "Project Guidelines",
@@ -12,7 +19,18 @@ export const metadata: Metadata = {
 
 export default function GuidelinesPage() {
   return (
-    <article>
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb href="/docs/guidelines">Documentation</Breadcrumb>
+          <BreadcrumbSeparator />
+          <Breadcrumb>Project Guidelines</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto py-8">
       <h1>Project Guidelines</h1>
 
       <p>This document defines the teaching philosophy, content standards, and structural requirements for all materials in this machine learning introduction project.</p>
@@ -1177,6 +1195,7 @@ Now we have:
       <p>Remember: <strong>If the learner doesn't understand, we haven't taught effectively.</strong></p>
 
       <p>The goal is not to impress with complexity, but to illuminate with clarity.</p>
-    </article>
+      </article>
+    </SidebarLayoutContent>
   );
 }

@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
 
 export const metadata: Metadata = {
   title: "Learning Science Review",
@@ -12,7 +19,18 @@ export const metadata: Metadata = {
 
 export default function LearningSciencePage() {
   return (
-    <article>
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb href="/docs/learning-science">Documentation</Breadcrumb>
+          <BreadcrumbSeparator />
+          <Breadcrumb>Learning Science Review</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto py-8">
       <h1>Learning Science Review: ML Introduction Project</h1>
 
       <p><strong>Reviewer:</strong> Learning Science & Educational Psychology Perspective</p>
@@ -1135,6 +1153,7 @@ Now the equation makes sense because you've experienced it concretely and visual
 
       <p><strong>Document prepared by:</strong> Learning Science Review Team</p>
       <p><strong>Last updated:</strong> 2025-10-24</p>
-    </article>
+      </article>
+    </SidebarLayoutContent>
   );
 }

@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
 
 export const metadata: Metadata = {
   title: "Task Tracker",
@@ -12,7 +19,18 @@ export const metadata: Metadata = {
 
 export default function JiraPage() {
   return (
-    <article>
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb href="/docs/jira">Documentation</Breadcrumb>
+          <BreadcrumbSeparator />
+          <Breadcrumb>Task Tracker</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto py-8">
       <h1>Machine Learning Tutorial Platform - Task Tracker</h1>
 
       <p>
@@ -1080,6 +1098,7 @@ export default function JiraPage() {
         <strong>Last Updated:</strong> 2025-10-25<br />
         <strong>Next Review:</strong> End of Sprint 0 (Week 2)
       </p>
-    </article>
+      </article>
+    </SidebarLayoutContent>
   );
 }

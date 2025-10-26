@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
 
 export const metadata: Metadata = {
   title: "Project Overview & Setup",
@@ -12,8 +19,19 @@ export const metadata: Metadata = {
 
 export default function ReadmePage() {
   return (
-    <>
-      <h1>Machine Learning Introduction</h1>
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb href="/docs/readme">Documentation</Breadcrumb>
+          <BreadcrumbSeparator />
+          <Breadcrumb>Project Overview</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto py-8">
+        <h1>Machine Learning Introduction</h1>
 
       <p>
         A comprehensive, hands-on introduction to machine learning that prioritizes understanding
@@ -218,6 +236,7 @@ cd machine-learning-intro`}</code></pre>
       <hr />
 
       <p><strong>Start your ML journey today - no PhD required!</strong></p>
-    </>
+      </article>
+    </SidebarLayoutContent>
   );
 }

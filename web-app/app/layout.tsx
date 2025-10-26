@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { clsx } from "clsx";
 import { GeistMono } from "geist/font/mono";
 import localFont from "next/font/local";
+import { SidebarLayout } from "@/components/layout/sidebar-layout";
+import { NAVIGATION_MODULES } from "@/lib/types";
 import { WebVitals } from "./web-vitals";
 import "./globals.css";
 
@@ -81,9 +83,11 @@ export default function RootLayout({
           >
             Skip to main content
           </a>
-          <main id="main-content">
-            {children}
-          </main>
+          <SidebarLayout modules={NAVIGATION_MODULES}>
+            <div id="main-content">
+              {children}
+            </div>
+          </SidebarLayout>
           <WebVitals />
         </div>
       </body>

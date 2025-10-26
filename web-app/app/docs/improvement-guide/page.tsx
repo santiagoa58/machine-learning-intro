@@ -1,4 +1,11 @@
 import type { Metadata } from 'next';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
 
 export const metadata: Metadata = {
   title: "Improvement Guide",
@@ -12,7 +19,18 @@ export const metadata: Metadata = {
 
 export default function ImprovementGuidePage() {
   return (
-    <article>
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb href="/docs/improvement-guide">Documentation</Breadcrumb>
+          <BreadcrumbSeparator />
+          <Breadcrumb>Improvement Guide</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <article className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto py-8">
       <h1>Machine Learning Tutorial Improvement Guide</h1>
 
       <p><strong>Quick Reference for Evidence-Based Enhancements</strong></p>
@@ -729,6 +747,7 @@ This mixes concepts from [Tutorial A] and [Tutorial B]:
 
       <p><strong>Last Updated:</strong> 2025-10-24</p>
       <p><strong>See Also:</strong> LEARNING_SCIENCE_REVIEW.md, PROJECT_GUIDELINES.md</p>
-    </article>
+      </article>
+    </SidebarLayoutContent>
   );
 }

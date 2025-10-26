@@ -1,9 +1,25 @@
 import Link from 'next/link';
+import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
+import {
+  Breadcrumbs,
+  BreadcrumbHome,
+  BreadcrumbSeparator,
+  Breadcrumb,
+} from '@/components/layout/breadcrumbs';
+import { ALGORITHMS, DOC_PAGES } from '@/lib/types';
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+    <SidebarLayoutContent
+      breadcrumbs={
+        <Breadcrumbs>
+          <BreadcrumbHome />
+          <BreadcrumbSeparator />
+          <Breadcrumb>Overview</Breadcrumb>
+        </Breadcrumbs>
+      }
+    >
+      <div className="mx-auto max-w-7xl py-8 sm:py-12 lg:py-16">
         {/* Header */}
         <header className="text-center mb-12 sm:mb-16">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-950 dark:text-white mb-4">
@@ -51,34 +67,15 @@ export default function Home() {
               Supervised Learning
             </h2>
             <ul className="space-y-3">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <div>
-                  <strong className="text-gray-950 dark:text-white">Linear Regression</strong>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Predict continuous values</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <div>
-                  <strong className="text-gray-950 dark:text-white">K-Nearest Neighbors</strong>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Classify based on proximity</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <div>
-                  <strong className="text-gray-950 dark:text-white">Logistic Regression</strong>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Binary classification</p>
-                </div>
-              </li>
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <div>
-                  <strong className="text-gray-950 dark:text-white">Support Vector Machines</strong>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Optimal decision boundaries</p>
-                </div>
-              </li>
+              {ALGORITHMS.map((algo) => (
+                <li key={algo.id} className="flex items-start">
+                  <span className="text-green-500 mr-2">✓</span>
+                  <div>
+                    <strong className="text-gray-950 dark:text-white">{algo.name}</strong>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">{algo.description}</p>
+                  </div>
+                </li>
+              ))}
             </ul>
           </section>
 
@@ -87,49 +84,17 @@ export default function Home() {
             <h2 id="documentation-heading" className="text-xl sm:text-2xl font-bold text-gray-950 dark:text-white mb-4">
               Project Documentation
             </h2>
-            {/* TODO(review): Mirror DOC_PAGES from lib/types.ts instead of hardcoding this list again */}
-            {/* TODO(review): so the homepage and docs layout stay in sync as pages change. */}
             <ul className="space-y-2" role="list">
-              <li>
-                <Link
-                  href="/docs/readme"
-                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
-                >
-                  → Project Overview & Setup
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs/guidelines"
-                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
-                >
-                  → Project Guidelines
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs/learning-science"
-                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
-                >
-                  → Learning Science Review
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs/improvement-guide"
-                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
-                >
-                  → Improvement Guide
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/docs/jira"
-                  className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
-                >
-                  → Task Tracker (JIRA)
-                </Link>
-              </li>
+              {DOC_PAGES.map((page) => (
+                <li key={page.slug}>
+                  <Link
+                    href={page.href}
+                    className="inline-flex items-center min-h-[44px] py-2 text-blue-600 dark:text-blue-400 hover:underline font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded px-1"
+                  >
+                    → {page.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
         </div>
@@ -184,7 +149,7 @@ export default function Home() {
             </a>
           </p>
         </footer>
-      </main>
-    </div>
+      </div>
+    </SidebarLayoutContent>
   );
 }
