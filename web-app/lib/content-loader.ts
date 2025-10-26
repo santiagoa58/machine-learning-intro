@@ -82,6 +82,17 @@ export class ContentLoader {
       return this.cache.get(id)!;
     }
 
+    // Security: Prevent path traversal attacks
+    // Reject IDs containing path separators or parent directory references
+    if (id.includes('/') || id.includes('\\') || id.includes('..')) {
+      throw new Error(`Invalid content ID: ${id} (path traversal not allowed)`);
+    }
+
+    // Additional security: ensure ID only contains safe characters
+    if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
+      throw new Error(`Invalid content ID: ${id} (only alphanumeric, underscore, and hyphen allowed)`);
+    }
+
     const filePath = path.join(this.contentDir, `${id}.json`);
 
     try {
