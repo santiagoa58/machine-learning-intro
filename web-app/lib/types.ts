@@ -47,6 +47,20 @@ export interface DocPage {
   href: string;
 }
 
+// Navigation Types (Compass-style)
+export interface Lesson {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+export interface Module {
+  id: string;
+  title: string;
+  description?: string;
+  lessons: Lesson[];
+}
+
 // Constants
 export const DOC_PAGES: ReadonlyArray<DocPage> = [
   {
@@ -126,5 +140,27 @@ export const FEATURES: ReadonlyArray<Feature> = [
     icon: '📊',
     title: 'Progress Tracking',
     description: 'Track your learning journey and spaced repetition schedule',
+  },
+] as const;
+
+// Navigation Modules (Compass-style sidebar structure)
+export const NAVIGATION_MODULES: ReadonlyArray<Module> = [
+  {
+    id: 'documentation',
+    title: 'Documentation',
+    lessons: DOC_PAGES.map(page => ({
+      id: page.href,
+      title: page.title,
+      description: page.description,
+    })),
+  },
+  {
+    id: 'supervised-learning',
+    title: 'Supervised Learning',
+    lessons: ALGORITHMS.map(algo => ({
+      id: `/learn/${algo.id}`,
+      title: algo.name,
+      description: algo.description,
+    })),
   },
 ] as const;
