@@ -41,36 +41,44 @@ function CourseNavigation({
 
   return (
     <div className={clsx(className, "space-y-8")}>
-      {modules.map((module) => (
-        <div key={module.id}>
-          <h2 className="text-base/7 font-semibold text-pretty text-gray-950 sm:text-sm/6 dark:text-white">
-            {module.title}
-          </h2>
-          <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
-            {module.lessons.map((lesson) => (
-              <li
-                key={lesson.id}
-                className={clsx(
-                  "-ml-px flex border-l border-transparent pl-4",
-                  "hover:text-gray-950 hover:not-has-aria-[current=page]:border-gray-400 dark:hover:text-white",
-                  "has-aria-[current=page]:border-gray-950 dark:has-aria-[current=page]:border-white",
-                )}
-              >
-                <Link
-                  href={lesson.id}
-                  aria-current={
-                    lesson.id === pathname ? "page" : undefined
-                  }
-                  onClick={onNavigate}
-                  className="aria-[current=page]:font-medium aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white"
+      {modules.map((module, index) => {
+        const isReference = module.id === 'reference';
+        return (
+          <div key={module.id} className={clsx(isReference && "mt-12 pt-8 border-t border-gray-950/10 dark:border-white/10")}>
+            <h2 className={clsx(
+              "text-base/7 font-semibold text-pretty sm:text-sm/6",
+              isReference
+                ? "text-gray-700 dark:text-gray-500"
+                : "text-gray-950 dark:text-white"
+            )}>
+              {module.title}
+            </h2>
+            <ul className="mt-4 flex flex-col gap-4 border-l border-gray-950/10 text-base/7 text-gray-700 sm:mt-3 sm:gap-3 sm:text-sm/6 dark:border-white/10 dark:text-gray-400">
+              {module.lessons.map((lesson) => (
+                <li
+                  key={lesson.id}
+                  className={clsx(
+                    "-ml-px flex border-l border-transparent pl-4",
+                    "hover:text-gray-950 hover:not-has-aria-[current=page]:border-gray-400 dark:hover:text-white",
+                    "has-aria-[current=page]:border-gray-950 dark:has-aria-[current=page]:border-white",
+                  )}
                 >
-                  {lesson.title}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+                  <Link
+                    href={lesson.id}
+                    aria-current={
+                      lesson.id === pathname ? "page" : undefined
+                    }
+                    onClick={onNavigate}
+                    className="aria-[current=page]:font-medium aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white"
+                  >
+                    {lesson.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }

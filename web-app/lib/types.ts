@@ -146,21 +146,22 @@ export const FEATURES: ReadonlyArray<Feature> = [
 // Navigation Modules (Compass-style sidebar structure)
 export const NAVIGATION_MODULES: ReadonlyArray<Module> = [
   {
-    id: 'documentation',
-    title: 'Documentation',
-    lessons: DOC_PAGES.map(page => ({
-      id: page.href,
-      title: page.title,
-      description: page.description,
-    })),
-  },
-  {
     id: 'supervised-learning',
     title: 'Supervised Learning',
     lessons: ALGORITHMS.map(algo => ({
       id: `/learn/${algo.id}`,
       title: algo.name,
       description: algo.description,
+    })),
+  },
+  {
+    id: 'reference',
+    title: 'Reference',
+    description: 'Guidelines and documentation',
+    lessons: DOC_PAGES.map(page => ({
+      id: page.href,
+      title: page.title,
+      description: page.description,
     })),
   },
 ] as const;
