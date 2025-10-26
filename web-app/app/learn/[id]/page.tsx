@@ -15,9 +15,8 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
-  const { id } = await params;
-  const algorithm = ALGORITHMS.find((a) => a.id === id);
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const algorithm = ALGORITHMS.find((a) => a.id === params.id);
 
   if (!algorithm) {
     return {
@@ -36,9 +35,8 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export default async function AlgorithmPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const algorithm = ALGORITHMS.find((a) => a.id === id);
+export default function AlgorithmPage({ params }: { params: { id: string } }) {
+  const algorithm = ALGORITHMS.find((a) => a.id === params.id);
 
   if (!algorithm) {
     notFound();
@@ -50,7 +48,7 @@ export default async function AlgorithmPage({ params }: { params: Promise<{ id: 
         <Breadcrumbs>
           <BreadcrumbHome />
           <BreadcrumbSeparator />
-          <Breadcrumb href="/learn">Supervised Learning</Breadcrumb>
+          <Breadcrumb>Supervised Learning</Breadcrumb>
           <BreadcrumbSeparator />
           <Breadcrumb>{algorithm.name}</Breadcrumb>
         </Breadcrumbs>

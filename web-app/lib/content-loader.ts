@@ -92,6 +92,8 @@ export class ContentLoader {
     if (!/^[a-zA-Z0-9_-]+$/.test(id)) {
       throw new Error(`Invalid content ID: ${id} (only alphanumeric, underscore, and hyphen allowed)`);
     }
+    // TODO(review): add regression tests for these guard clauses so a future refactor can't silently
+    // TODO(review): re-expose directory traversal by bypassing the early returns above.
 
     const filePath = path.join(this.contentDir, `${id}.json`);
 

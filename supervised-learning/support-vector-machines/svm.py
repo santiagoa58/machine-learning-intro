@@ -1,7 +1,7 @@
 """
 Face Similarity Checker using SVM and LFW dataset.
 
-This module trains an SVM model on the LFW dataset for face similarity checks. 
+This module trains an SVM model on the LFW dataset for face similarity checks.
 Features are extracted from raw pixel values
 """
 from sklearn.datasets import fetch_lfw_people
@@ -20,6 +20,9 @@ from skimage.transform import resize
 from skimage.feature import hog
 from collections import Counter
 import argparse
+import joblib
+import os
+from pathlib import Path
 
 
 def read_image(filename):
@@ -54,15 +57,17 @@ def preprocess_images(images):
     return np.vstack(preprocessed)
 
 
-def filter_underrepresented_classes(X, y, n):
+def filter_underrepresented_classes_indices(y, n):
+    """
+    Find indices of samples whose classes have at least n samples.
+    Returns indices to keep, avoiding expensive preprocessing of filtered samples.
+    """
     count_per_class = Counter(y)
-    # Find classes that have fewer than 'n' samples
     underrepresented_classes = [
         cls for cls, count in count_per_class.items() if count < n
     ]
-    # Remove these classes from X and y
     mask = np.isin(y, underrepresented_classes, invert=True)
-    return X[mask], y[mask]
+    return np.where(mask)[0]
 
 
 def load_data():
@@ -72,9 +77,15 @@ def load_data():
     lfw_people = fetch_lfw_people(
         min_faces_per_person=5, download_if_missing=True, data_home="sklearn-datasets"
     )
-    X = preprocess_images(lfw_people.images)
-    y = lfw_people.target
-    X, y = filter_underrepresented_classes(X, y, 2)
+
+    # Filter classes with low support BEFORE expensive HOG preprocessing
+    # This avoids wasting compute on images that will be discarded
+    keep_indices = filter_underrepresented_classes_indices(lfw_people.target, 2)
+    filtered_images = lfw_people.images[keep_indices]
+    y = lfw_people.target[keep_indices]
+
+    # Now preprocess only the images we're actually going to use
+    X = preprocess_images(filtered_images)
 
     # Reindex y to be contiguous after filtering to avoid indexing errors
     unique_labels = np.unique(y)
@@ -177,29 +188,82 @@ def predict_similarity(model, user_upload, X_train, n=3):
     return most_similar_indices
 
 
-def main(user_upload):
+def get_model_cache_path():
+    """Get the path where the trained model should be cached."""
+    cache_dir = Path("sklearn-datasets/model_cache")
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    return cache_dir / "svm_face_model.pkl"
+
+
+def save_model(model, data):
+    """Save trained model and associated data for reuse."""
+    cache_path = get_model_cache_path()
+    cache_data = {
+        "model": model,
+        "X_train": data["X_train"],
+        "y_train": data["y_train"],
+        "target_names": data["target_names"],
+    }
+    joblib.dump(cache_data, cache_path)
+    print(f"Model cached to {cache_path}")
+
+
+def load_cached_model():
+    """Load a previously trained model if it exists."""
+    cache_path = get_model_cache_path()
+    if cache_path.exists():
+        print(f"Loading cached model from {cache_path}...")
+        return joblib.load(cache_path)
+    return None
+
+
+def main(user_upload, force_retrain=False):
     """
     Make predictions on uploaded image using SVM model and print results.
+
+    Args:
+        user_upload: The uploaded image to predict on
+        force_retrain: If True, retrain the model even if a cached version exists
     """
-    print("Loading model data...")
+    print("Preprocessing user upload...")
     processed_user_upload = preprocess_image(user_upload)
-    data = load_data()
-    print("Creating the model...")
-    model = create_model()
-    print("Training model...")
-    model = train_model(model, data["X_train"], data["y_train"])
-    print("Evaluating the model...")
-    train_score, _ = evaluate_model(
-        model, data["X_train"], data["y_train"], data["target_names"]
-    )
-    print(f"Training set model score: {train_score}")
-    test_score, _ = evaluate_model(
-        model, data["X_test"], data["y_test"], data["target_names"]
-    )
-    print(f"Testing set model score: {test_score}")
+
+    # Try to load cached model first to avoid expensive retraining
+    cached_data = None if force_retrain else load_cached_model()
+
+    if cached_data:
+        model = cached_data["model"]
+        X_train = cached_data["X_train"]
+        y_train = cached_data["y_train"]
+        target_names = cached_data["target_names"]
+        print("Using cached model")
+    else:
+        print("Loading dataset...")
+        data = load_data()
+        print("Creating and training model...")
+        model = create_model()
+        model = train_model(model, data["X_train"], data["y_train"])
+
+        # Evaluate and save
+        print("Evaluating the model...")
+        train_score, _ = evaluate_model(
+            model, data["X_train"], data["y_train"], data["target_names"]
+        )
+        print(f"Training set model score: {train_score}")
+        test_score, _ = evaluate_model(
+            model, data["X_test"], data["y_test"], data["target_names"]
+        )
+        print(f"Testing set model score: {test_score}")
+
+        # Cache for future use
+        save_model(model, data)
+        X_train = data["X_train"]
+        y_train = data["y_train"]
+        target_names = data["target_names"]
+
     print("Predicting similarity...")
-    most_similar = predict_similarity(model, processed_user_upload, data["X_train"])
-    most_similar_names = data["target_names"][data["y_train"][most_similar]]
+    most_similar = predict_similarity(model, processed_user_upload, X_train)
+    most_similar_names = target_names[y_train[most_similar]]
     print(f"Most similar faces: {most_similar_names}")
 
 
@@ -210,8 +274,13 @@ if __name__ == "__main__":
     parser.add_argument(
         "filename", type=str, help="Path to image file to check similarity against."
     )
+    parser.add_argument(
+        "--retrain",
+        action="store_true",
+        help="Force retraining even if a cached model exists"
+    )
 
     args = parser.parse_args()
     print(f"Parsing image: {args.filename}")
     user_upload = read_image(args.filename)
-    main(user_upload)
+    main(user_upload, force_retrain=args.retrain)

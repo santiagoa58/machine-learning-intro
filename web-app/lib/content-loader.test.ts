@@ -318,4 +318,69 @@ describe('ContentLoader', () => {
       expect(mockFileSystem.readFile).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('Security: Path Traversal Prevention', () => {
+    it('should reject ID containing forward slash', async () => {
+      const loader = new ContentLoader('/content', mockFileSystem);
+
+      await expect(loader.loadContent('../../etc/passwd')).rejects.toThrow(
+        'Invalid content ID: ../../etc/passwd (path traversal not allowed)'
+      );
+      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+    });
+
+    it('should reject ID containing backslash', async () => {
+      const loader = new ContentLoader('/content', mockFileSystem);
+
+      await expect(loader.loadContent('..\\..\\windows\\system32')).rejects.toThrow(
+        'Invalid content ID: ..\\..\\windows\\system32 (path traversal not allowed)'
+      );
+      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+    });
+
+    it('should reject ID containing parent directory reference', async () => {
+      const loader = new ContentLoader('/content', mockFileSystem);
+
+      await expect(loader.loadContent('../secret')).rejects.toThrow(
+        'Invalid content ID: ../secret (path traversal not allowed)'
+      );
+      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+    });
+
+    it('should reject ID with special characters', async () => {
+      const loader = new ContentLoader('/content', mockFileSystem);
+
+      await expect(loader.loadContent('test<script>')).rejects.toThrow(
+        'Invalid content ID: test<script> (only alphanumeric, underscore, and hyphen allowed)'
+      );
+      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+    });
+
+    it('should reject ID with null byte', async () => {
+      const loader = new ContentLoader('/content', mockFileSystem);
+
+      await expect(loader.loadContent('test\0file')).rejects.toThrow(
+        'Invalid content ID: test\0file (only alphanumeric, underscore, and hyphen allowed)'
+      );
+      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+    });
+
+    it('should allow valid alphanumeric IDs with hyphens and underscores', async () => {
+      const mockContent = {
+        id: 'valid-id_123',
+        title: 'Valid',
+        description: 'Valid content',
+        type: 'lesson',
+        content: { sections: [] },
+      };
+
+      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+
+      const loader = new ContentLoader('/content', mockFileSystem);
+      const result = await loader.loadContent('valid-id_123');
+
+      expect(result).toEqual(mockContent);
+      expect(mockFileSystem.readFile).toHaveBeenCalledWith('/content/valid-id_123.json', 'utf-8');
+    });
+  });
 });

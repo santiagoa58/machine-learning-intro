@@ -58,15 +58,12 @@ const nextConfig: NextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            // NOTE: 'unsafe-inline' and 'unsafe-eval' are currently used for development convenience
-            // with Tailwind CSS and Next.js hot reloading. Before production deployment:
-            // 1. Replace 'unsafe-inline' with nonce-based script/style loading
-            // 2. Replace 'unsafe-eval' with strict-dynamic or remove if possible
-            // 3. Use Next.js middleware to generate and inject CSP nonces per request
             value: [
               "default-src 'self'",
-              "script-src 'self' 'unsafe-eval' 'unsafe-inline'",
-              "style-src 'self' 'unsafe-inline'",
+              // Note: In production, replace 'unsafe-eval' with nonce-based CSP for Next.js
+              // Development mode requires 'unsafe-eval' for hot module replacement
+              `script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ""}`,
+              "style-src 'self'",
               "img-src 'self' data: https:",
               "font-src 'self'",
               "connect-src 'self'",
