@@ -136,17 +136,17 @@ export function SidebarLayout({
         data-sidebar-collapsed={isSidebarOpen ? undefined : ""}
         className="group"
       >
+        <MobileNavigation
+          open={isMobileDialogOpen}
+          onClose={() => setIsMobileDialogOpen(false)}
+          modules={modules}
+        />
         <aside className="fixed inset-y-0 left-0 w-2xs overflow-y-auto border-r border-gray-950/10 group-data-sidebar-collapsed:hidden max-xl:hidden dark:border-white/10">
           <nav aria-label="Course" className="px-6 py-4">
             <div className="sticky top-4 flex h-6">
               <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
                 <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
               </IconButton>
-              <MobileNavigation
-                open={isMobileDialogOpen}
-                onClose={() => setIsMobileDialogOpen(false)}
-                modules={modules}
-              />
             </div>
             <div className="mt-3">
               <CourseNavigation modules={modules} className="max-xl:hidden" />

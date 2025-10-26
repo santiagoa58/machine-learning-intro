@@ -31,12 +31,18 @@ test.describe('Navigation and Sidebar', () => {
     const sidebar = page.locator('aside').first();
     await expect(sidebar).toBeVisible();
 
+    // Find the parent div that controls collapse state
+    const sidebarContainer = page.locator('.group[data-sidebar-collapsed], .group:not([data-sidebar-collapsed])');
+
     // Click the toggle button inside the sidebar
     const sidebarToggle = sidebar.locator('button').first();
     await sidebarToggle.click();
 
-    // Sidebar should now be hidden (has data-sidebar-collapsed attribute)
-    await expect(sidebar).not.toBeVisible();
+    // Wait for the data-sidebar-collapsed attribute to be added
+    await expect(page.locator('.group[data-sidebar-collapsed]')).toHaveCount(1);
+
+    // Sidebar should now be hidden
+    await expect(sidebar).toBeHidden();
 
     // Toggle button should now appear in the page content area (not in the sidebar nav)
     // It's in the Navbar component with class "max-xl:hidden"
@@ -45,6 +51,9 @@ test.describe('Navigation and Sidebar', () => {
 
     // Click the navbar toggle to reopen sidebar
     await navbarToggle.click();
+
+    // Wait for the data-sidebar-collapsed attribute to be removed
+    await expect(page.locator('.group[data-sidebar-collapsed]')).toHaveCount(0);
 
     // Sidebar should be visible again
     await expect(sidebar).toBeVisible();
