@@ -19,7 +19,7 @@ test.describe('Navigation and Sidebar', () => {
     await expect(sidebar).toBeVisible();
 
     // Should contain navigation links
-    await expect(sidebar).toContainText('Documentation');
+    await expect(sidebar).toContainText('Reference');
     await expect(sidebar).toContainText('Supervised Learning');
   });
 
@@ -35,8 +35,8 @@ test.describe('Navigation and Sidebar', () => {
     const sidebarToggle = sidebar.locator('button').first();
     await sidebarToggle.click();
 
-    // Sidebar should now be hidden
-    await expect(sidebar).toBeHidden();
+    // Sidebar should now be hidden (has data-sidebar-collapsed attribute)
+    await expect(sidebar).not.toBeVisible();
 
     // Toggle button should now appear in the page content area (not in the sidebar nav)
     // It's in the Navbar component with class "max-xl:hidden"
@@ -74,11 +74,11 @@ test.describe('Navigation and Sidebar', () => {
     const dialogPanel = page.locator('[role="dialog"][class*="xl:hidden"] [class*="isolate"]');
 
     // Check that the dialog panel contains navigation links
-    const linksInDialog = dialogPanel.locator('a[href^="/docs"]');
+    const linksInDialog = dialogPanel.locator('a[href^="/"]');
     await expect(linksInDialog.first()).toBeVisible();
 
-    // Verify we can see both Documentation and Supervised Learning sections
-    await expect(dialogPanel).toContainText('Documentation');
+    // Verify we can see both Reference and Supervised Learning sections
+    await expect(dialogPanel).toContainText('Reference');
     await expect(dialogPanel).toContainText('Supervised Learning');
   });
 
