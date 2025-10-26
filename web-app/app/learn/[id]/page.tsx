@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { use } from 'react';
 import { SidebarLayoutContent } from '@/components/layout/sidebar-layout';
 import {
   Breadcrumbs,
@@ -15,8 +16,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const algorithm = ALGORITHMS.find((a) => a.id === params.id);
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  const algorithm = ALGORITHMS.find((a) => a.id === id);
 
   if (!algorithm) {
     return {
@@ -35,8 +37,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-export default function AlgorithmPage({ params }: { params: { id: string } }) {
-  const algorithm = ALGORITHMS.find((a) => a.id === params.id);
+export default function AlgorithmPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
+  const algorithm = ALGORITHMS.find((a) => a.id === id);
 
   if (!algorithm) {
     notFound();
