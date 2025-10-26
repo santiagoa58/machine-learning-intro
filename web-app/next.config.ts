@@ -60,13 +60,15 @@ const nextConfig: NextConfig = {
             key: 'Content-Security-Policy',
             value: [
               "default-src 'self'",
-              // Note: In production, replace 'unsafe-eval' with nonce-based CSP for Next.js
-              // Development mode requires 'unsafe-eval' for hot module replacement
-              `script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval'" : ""}`,
-              "style-src 'self'",
+              // Note: In production, replace 'unsafe-eval' and 'unsafe-inline' with nonce-based CSP
+              // Development mode requires 'unsafe-eval' for hot module replacement and 'unsafe-inline' for inline scripts
+              `script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval' 'unsafe-inline'" : ""}`,
+              // Allow inline styles for Next.js fonts, CSS-in-JS, and development tools
+              `style-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-inline'" : ""}`,
               "img-src 'self' data: https:",
-              "font-src 'self'",
-              "connect-src 'self'",
+              // Allow fonts from CDNs and data URIs
+              "font-src 'self' data: https:",
+              "connect-src 'self' ws: wss:",
               "frame-ancestors 'none'",
             ].join('; '),
           },
