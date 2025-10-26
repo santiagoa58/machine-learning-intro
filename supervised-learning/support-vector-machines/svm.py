@@ -35,12 +35,12 @@ def preprocess_image(image):
     """
     # resize image to 128x64 to standardize size
     image_resized = resize(image, (128, 64), anti_aliasing=True)
-    features, _ = hog(
+    features = hog(
         image_resized,
         orientations=9,  # number of gradient orientations
         pixels_per_cell=(8, 8),  # size of cell for HOG
         cells_per_block=(2, 2),  # number of cells per block
-        visualize=True,  # return HOG image
+        visualize=False,  # don't return HOG image to save time/memory
     )
     # Reshape HOG features to a 2D array where 1st dimension is number of samples and 2nd dimension is number of features
     return features.reshape(1, -1)
@@ -75,8 +75,15 @@ def load_data():
     X = preprocess_images(lfw_people.images)
     y = lfw_people.target
     X, y = filter_underrepresented_classes(X, y, 2)
-    target_names = np.array([lfw_people.target_names[i] for i in np.unique(y)])
-    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.2)
+
+    # Reindex y to be contiguous after filtering to avoid indexing errors
+    unique_labels = np.unique(y)
+    target_names = np.array([lfw_people.target_names[i] for i in unique_labels])
+    label_mapping = {old_label: new_label for new_label, old_label in enumerate(unique_labels)}
+    y = np.array([label_mapping[label] for label in y])
+
+    # Use random_state for reproducible train/test splits
+    sss = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)
     for train_index, test_index in sss.split(X, y):
         X_train, X_test = X[train_index], X[test_index]
         y_train, y_test = y[train_index], y[test_index]
@@ -120,7 +127,10 @@ def train_model(model, X, y):
         ],
     }
 
-    grid = GridSearchCV(model, param_grid, cv=StratifiedKFold(n_splits=2))
+    # Use StratifiedKFold with shuffle and random_state for reproducible, stable results
+    # n_jobs=-1 enables parallel processing for faster grid search
+    cv = StratifiedKFold(n_splits=2, shuffle=True, random_state=42)
+    grid = GridSearchCV(model, param_grid, cv=cv, n_jobs=-1)
     grid.fit(X, y)
     print(f"Best cross-validation accuracy: {grid.best_score_}")
     print(f"Best parameters: {grid.best_params_}")
