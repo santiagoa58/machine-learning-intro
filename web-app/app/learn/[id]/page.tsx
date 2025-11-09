@@ -7,8 +7,8 @@ import {
   BreadcrumbSeparator,
   Breadcrumb,
 } from '@/components/layout/breadcrumbs';
-import { MarkdownContent } from '@/components/markdown-content';
-import { ALGORITHMS } from '@/lib/types';
+import { MDXContent } from '@/components/mdx-content';
+import { ALGORITHMS } from '@/lib/constants';
 import { getAlgorithmContent } from '@/lib/content';
 
 export async function generateStaticParams() {
@@ -61,10 +61,10 @@ export default async function AlgorithmPage({ params }: { params: Promise<{ id: 
         </Breadcrumbs>
       }
     >
-      <article className="py-8">
+      <article className="py-6 sm:py-8 lg:py-12">
         {algorithmContent ? (
-          // Render markdown content if available
-          <MarkdownContent content={algorithmContent.content} />
+          // Render MDX content
+          <MDXContent content={algorithmContent.content} />
         ) : (
           // Fallback to placeholder if content not available
           <div className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto">
@@ -75,16 +75,16 @@ export default async function AlgorithmPage({ params }: { params: Promise<{ id: 
                 🚧 Tutorial Content Coming Soon
               </h2>
               <p className="text-blue-800 dark:text-blue-100">
-                This tutorial is currently being developed and will be available soon. Check back later for interactive lessons on {algorithm.name}.
+                {`This tutorial is currently being developed and will be available soon. Check back later for interactive lessons on ${algorithm.name}.`}
               </p>
             </div>
 
             <h2>Overview</h2>
             <p>
-              <strong>{algorithm.name}</strong> is a {algorithm.category} algorithm used for {algorithm.description.toLowerCase()}.
+              <strong>{algorithm.name}</strong> {`is a ${algorithm.category} algorithm used for ${algorithm.description.toLowerCase()}.`}
             </p>
 
-            <h2>What You'll Learn</h2>
+            <h2>{`What You'll Learn`}</h2>
             <ul>
               <li>Understanding the {algorithm.name} algorithm</li>
               <li>Practical applications and use cases</li>

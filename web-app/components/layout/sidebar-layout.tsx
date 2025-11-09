@@ -37,11 +37,11 @@ function CourseNavigation({
   onNavigate?: () => void;
   className?: string;
 }) {
-  let pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <div className={clsx(className, "space-y-8")}>
-      {modules.map((module, index) => {
+      {modules.map((module) => {
         const isReference = module.id === 'reference';
         return (
           <div key={module.id} className={clsx(isReference && "mt-12 pt-8 border-t border-gray-950/10 dark:border-white/10")}>
@@ -58,9 +58,10 @@ function CourseNavigation({
                 <li
                   key={lesson.id}
                   className={clsx(
-                    "-ml-px flex border-l border-transparent pl-4",
+                    "-ml-px flex border-l-2 border-transparent pl-4",
                     "hover:text-gray-950 hover:not-has-aria-[current=page]:border-gray-400 dark:hover:text-white",
-                    "has-aria-[current=page]:border-gray-950 dark:has-aria-[current=page]:border-white",
+                    "has-aria-[current=page]:border-blue-600 has-aria-[current=page]:bg-blue-50/50 dark:has-aria-[current=page]:border-blue-500 dark:has-aria-[current=page]:bg-blue-950/20",
+                    "transition-colors duration-150",
                   )}
                 >
                   <Link
@@ -69,7 +70,7 @@ function CourseNavigation({
                       lesson.id === pathname ? "page" : undefined
                     }
                     onClick={onNavigate}
-                    className="aria-[current=page]:font-medium aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white"
+                    className="flex-1 py-1 -mx-4 px-4 rounded aria-[current=page]:font-semibold aria-[current=page]:text-gray-950 dark:aria-[current=page]:text-white hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors duration-150"
                   >
                     {lesson.title}
                   </Link>
@@ -94,9 +95,9 @@ function MobileNavigation({
 }) {
   return (
     <Dialog open={open} onClose={onClose} className="xl:hidden">
-      <DialogBackdrop className="fixed inset-0 bg-gray-950/25" />
+      <DialogBackdrop className="fixed inset-0 bg-gray-950/25 backdrop-blur-sm" />
       <DialogPanel className="fixed inset-y-0 left-0 isolate w-sm max-w-[calc(100%-(--spacing(11)))] overflow-y-auto bg-white ring ring-gray-950/10 sm:w-xs dark:bg-gray-950 dark:ring-white/10">
-        <div className="sticky top-0 z-10 px-4 py-4 sm:px-6">
+        <div className="sticky top-0 z-10 px-4 py-4 sm:px-6 bg-white/95 backdrop-blur-sm dark:bg-gray-950/95 border-b border-gray-950/10 dark:border-white/10">
           <div className="flex h-6 shrink-0">
             <CloseButton as={IconButton}>
               <SidebarIcon className="shrink-0 stroke-gray-950 dark:stroke-white" />
@@ -106,7 +107,7 @@ function MobileNavigation({
         <CourseNavigation
           modules={modules}
           onNavigate={onClose}
-          className="px-4 pb-4 sm:px-6"
+          className="px-4 pb-4 sm:px-6 pb-safe"
         />
       </DialogPanel>
     </Dialog>
@@ -120,8 +121,8 @@ export function SidebarLayout({
   modules: readonly Module[];
   children: React.ReactNode;
 }) {
-  let [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  let [isMobileDialogOpen, setIsMobileDialogOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isMobileDialogOpen, setIsMobileDialogOpen] = useState(false);
 
   return (
     <SidebarContext.Provider
@@ -168,7 +169,7 @@ export function SidebarLayoutContent({
   breadcrumbs: React.ReactNode;
   children: React.ReactNode;
 }) {
-  let {
+  const {
     isSidebarOpen,
     setIsSidebarOpen,
     isMobileDialogOpen,

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test } from '@playwright/test';
 
 test.describe('Mobile Navigation - Detailed Debug', () => {
   test('debug mobile navigation dialog visibility', async ({ page }) => {

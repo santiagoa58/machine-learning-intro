@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import createMDX from '@next/mdx';
 
 const nextConfig: NextConfig = {
   // Enable React strict mode for better debugging
@@ -9,6 +10,9 @@ const nextConfig: NextConfig = {
 
   // Enable compression
   compress: true,
+
+  // Support .mdx files
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
 
   // Enforce type checking during builds
   typescript: {
@@ -84,4 +88,12 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  // Add markdown plugins here, as desired
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);

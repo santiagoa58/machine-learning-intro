@@ -11,7 +11,7 @@ export function IconButton({
       className={clsx(
         className,
         "relative *:relative",
-        "before:absolute before:top-1/2 before:left-1/2 before:size-8 before:-translate-1/2 before:rounded-md",
+        "before:absolute before:top-1/2 before:left-1/2 before:size-11 before:-translate-1/2 before:rounded-md",
         "before:bg-white/75 before:backdrop-blur-sm dark:before:bg-gray-950/75",
         "hover:before:bg-gray-950/5 dark:hover:before:bg-white/5",
         "focus:outline-hidden focus-visible:before:outline focus-visible:before:outline-2 focus-visible:before:outline-blue-700",

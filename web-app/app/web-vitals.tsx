@@ -12,7 +12,7 @@ export function WebVitals() {
     // Send to analytics in production
     // Example: Send to Vercel Analytics
     if (typeof window !== 'undefined' && 'va' in window) {
-      const va = (window as any).va;
+      const va = (window as { va: (event: string, data: Record<string, unknown>) => void }).va;
       va('event', {
         name: metric.name,
         value: metric.value,

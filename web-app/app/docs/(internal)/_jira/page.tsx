@@ -169,7 +169,7 @@ export default function JiraPage() {
           <ul>
             <li>[TASK-8] ✅ Fix duplicate section numbering in Linear Regression</li>
             <li>[TASK-9] ✅ Add random_state to all Logistic Regression models (6 locations)</li>
-            <li>[TASK-10] ✅ Fix typo "Accurary" → "Accuracy"</li>
+            <li>[TASK-10] ✅ Fix typo &quot;Accurary&quot; → &quot;Accuracy&quot;</li>
             <li>[TASK-11] ✅ Fix duplicate section 2.4.1 in KNN</li>
             <li>[TASK-12] ✅ Add random_state to SVM.py (SVC and PCA)</li>
           </ul>
@@ -306,7 +306,7 @@ export default function JiraPage() {
         <li>Priority: Critical</li>
         <li>Story Points: 8</li>
         <li>Sprint: Sprint 2</li>
-        <li>Description: Build interactive "Quick Check" components with reveal answers</li>
+        <li>Description: Build interactive &quot;Quick Check&quot; components with reveal answers</li>
         <li>Tasks:
           <ul>
             <li>[TASK-38] ⚪ Create QuickCheck component with collapsible answers (3 points)</li>
@@ -521,7 +521,7 @@ export default function JiraPage() {
             <li>[TASK-84] ⚪ Set up database (Supabase/PostgreSQL) (3 points)</li>
             <li>[TASK-85] ⚪ Implement progress tracking API (3 points)</li>
             <li>[TASK-86] ⚪ Create progress visualization dashboard (3 points)</li>
-            <li>[TASK-87] ⚪ Add "resume where you left off" functionality (2 points)</li>
+            <li>[TASK-87] ⚪ Add &quot;resume where you left off&quot; functionality (2 points)</li>
           </ul>
         </li>
       </ul>
@@ -582,7 +582,7 @@ export default function JiraPage() {
           <ul>
             <li>[TASK-96] ⚪ Implement SM-2 or similar spaced repetition algorithm (5 points)</li>
             <li>[TASK-97] ⚪ Create review scheduling system (3 points)</li>
-            <li>[TASK-98] ⚪ Build "due for review" notification system (3 points)</li>
+            <li>[TASK-98] ⚪ Build &quot;due for review&quot; notification system (3 points)</li>
             <li>[TASK-99] ⚪ Create daily review page (2 points)</li>
           </ul>
         </li>
@@ -757,10 +757,10 @@ export default function JiraPage() {
 
       <h3>Low Priority Bugs</h3>
       <ul>
-        <li>[BUG-1] ⚪ Image attachments in notebooks won't display (affects all notebooks)
+        <li>[BUG-1] ⚪ Image attachments in notebooks won&apos;t display (affects all notebooks)
           <ul>
             <li>Priority: Low</li>
-            <li>Description: Notebooks reference attachment:image.png which won't render</li>
+            <li>Description: Notebooks reference attachment:image.png which won&apos;t render</li>
             <li>Fix: Need to extract images and host properly or use external URLs</li>
             <li>Affected: Linear Regression, Linear Regression Deeper Dive, KNN</li>
           </ul>

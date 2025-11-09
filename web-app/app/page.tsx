@@ -6,7 +6,7 @@ import {
   BreadcrumbSeparator,
   Breadcrumb,
 } from '@/components/layout/breadcrumbs';
-import { ALGORITHMS, DOC_PAGES } from '@/lib/types';
+import { ALGORITHMS, DOC_PAGES } from '@/lib/constants';
 
 export default function Home() {
   return (
@@ -37,8 +37,8 @@ export default function Home() {
             Learn by Doing, Understand by Exploring
           </h2>
           <p className="text-base sm:text-lg text-gray-700 dark:text-gray-400 mb-4">
-            This isn't your typical ML tutorial that starts with pages of mathematics and theory.
-            Instead, we believe the best way to learn machine learning is to:
+            {`This isn't your typical ML tutorial that starts with pages of mathematics and theory.
+            Instead, we believe the best way to learn machine learning is to:`}
           </p>
           <ol className="list-decimal list-inside space-y-3 text-base sm:text-lg text-gray-700 dark:text-gray-400 ml-2 sm:ml-4">
             <li><strong className="text-gray-950 dark:text-white">See it work first</strong> - Start with a real application and get results</li>
@@ -54,8 +54,8 @@ export default function Home() {
             🚧 Platform Under Development
           </h3>
           <p className="text-sm sm:text-base text-yellow-800 dark:text-yellow-100">
-            We're currently building an interactive web platform to transform these tutorials
-            into an engaging learning experience with code execution, quizzes, and spaced repetition.
+            {`We're currently building an interactive web platform to transform these tutorials
+            into an engaging learning experience with code execution, quizzes, and spaced repetition.`}
           </p>
         </aside>
 

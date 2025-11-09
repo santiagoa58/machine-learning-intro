@@ -9,7 +9,7 @@ export interface FileSystem {
 
 // Default file system implementation
 const defaultFileSystem: FileSystem = {
-  readFile: fsReadFile,
+  readFile: (path: string, encoding: string) => fsReadFile(path, encoding as BufferEncoding),
 };
 
 // Section schemas
@@ -105,7 +105,7 @@ export class ContentLoader {
       let jsonData: unknown;
       try {
         jsonData = JSON.parse(fileContents);
-      } catch (error) {
+      } catch {
         throw new Error(`Invalid JSON in content file: ${id}`);
       }
 
@@ -121,20 +121,22 @@ export class ContentLoader {
       const content = result.data;
       this.cache.set(id, content);
       return content;
-    } catch (error: any) {
+    } catch (error: unknown) {
       // Handle specific error cases
-      if (error.code === 'ENOENT') {
+      if (error && typeof error === 'object' && 'code' in error && error.code === 'ENOENT') {
         throw new Error(`Content not found: ${id}`);
       }
 
       // Re-throw validation and parsing errors
-      if (error.message.includes('Invalid JSON') ||
-          error.message.includes('Content validation failed')) {
+      if (error instanceof Error &&
+          (error.message.includes('Invalid JSON') ||
+           error.message.includes('Content validation failed'))) {
         throw error;
       }
 
       // Unknown error
-      throw new Error(`Failed to load content ${id}: ${error.message}`);
+      const message = error instanceof Error ? error.message : 'Unknown error';
+      throw new Error(`Failed to load content ${id}: ${message}`);
     }
   }
 

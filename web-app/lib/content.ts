@@ -11,6 +11,7 @@ export interface AlgorithmContent {
     prerequisites?: string[];
     learningOutcomes?: string[];
   };
+  isMdx: boolean;
 }
 
 /**
@@ -21,13 +22,24 @@ function getContentPath(...segments: string[]): string {
 }
 
 /**
- * Load algorithm content from markdown file
+ * Load algorithm content from markdown or MDX file
  * @param algorithmId - The algorithm ID (e.g., 'linear-regression')
  * @returns Algorithm content with metadata
  */
 export async function getAlgorithmContent(algorithmId: string): Promise<AlgorithmContent | null> {
   try {
-    const filePath = getContentPath('algorithms', `${algorithmId}.md`);
+    // Try MDX first, then fall back to MD
+    let filePath = getContentPath('algorithms', `${algorithmId}.mdx`);
+    let isMdx = true;
+
+    try {
+      await fs.access(filePath);
+    } catch {
+      // MDX doesn't exist, try MD
+      filePath = getContentPath('algorithms', `${algorithmId}.md`);
+      isMdx = false;
+    }
+
     const fileContent = await fs.readFile(filePath, 'utf-8');
 
     // Parse frontmatter and content
@@ -42,6 +54,7 @@ export async function getAlgorithmContent(algorithmId: string): Promise<Algorith
         prerequisites: data.prerequisites || [],
         learningOutcomes: data.learningOutcomes || [],
       },
+      isMdx,
     };
   } catch (error) {
     // If file doesn't exist, return null
@@ -59,11 +72,19 @@ export async function getAlgorithmContent(algorithmId: string): Promise<Algorith
  */
 export async function hasAlgorithmContent(algorithmId: string): Promise<boolean> {
   try {
-    const filePath = getContentPath('algorithms', `${algorithmId}.md`);
+    // Try MDX first
+    let filePath = getContentPath('algorithms', `${algorithmId}.mdx`);
     await fs.access(filePath);
     return true;
   } catch {
-    return false;
+    // Try MD
+    try {
+      const filePath = getContentPath('algorithms', `${algorithmId}.md`);
+      await fs.access(filePath);
+      return true;
+    } catch {
+      return false;
+    }
   }
 }
 
@@ -77,8 +98,8 @@ export async function listAlgorithmContent(): Promise<string[]> {
     const files = await fs.readdir(algorithmsDir);
 
     return files
-      .filter(file => file.endsWith('.md'))
-      .map(file => file.replace('.md', ''));
+      .filter(file => file.endsWith('.md') || file.endsWith('.mdx'))
+      .map(file => file.replace(/\.(md|mdx)$/, ''));
   } catch {
     return [];
   }

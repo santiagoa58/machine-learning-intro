@@ -3,7 +3,7 @@ import { clsx } from "clsx";
 import { GeistMono } from "geist/font/mono";
 import localFont from "next/font/local";
 import { SidebarLayout } from "@/components/layout/sidebar-layout";
-import { NAVIGATION_MODULES } from "@/lib/types";
+import { NAVIGATION_MODULES } from "@/lib/constants";
 import { WebVitals } from "./web-vitals";
 import "./globals.css";
 

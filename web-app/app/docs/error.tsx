@@ -39,7 +39,7 @@ export default function DocsError({
               Failed to load documentation
             </h1>
             <p className="text-gray-600 dark:text-gray-300">
-              {error.message || "We couldn't load this documentation page."}
+              {error.message || `We couldn't load this documentation page.`}
             </p>
           </div>
 

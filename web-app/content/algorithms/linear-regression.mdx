@@ -32,16 +32,6 @@ Linear regression is used extensively across industries:
 - **Marketing**: Estimating sales based on advertising spend
 - **Climate Science**: Modeling temperature trends, predicting weather patterns
 
-### Learning Outcomes
-
-By the end of this tutorial, you will:
-
-1. Understand what linear regression is and when to use it
-2. Build a simple linear regression model from scratch
-3. Use scikit-learn's implementation for real-world problems
-4. Understand the mathematics behind the algorithm
-5. Evaluate and improve your models
-
 ---
 
 ## Section 1: Building Your First Model
@@ -52,106 +42,128 @@ Let's dive right in and build a linear regression model. We'll start with a simp
 
 Imagine you're a teacher who wants to predict students' final exam scores based on the number of hours they studied. You have data from previous students:
 
-| Hours Studied | Exam Score |
-|---------------|------------|
-| 1             | 55         |
-| 2             | 65         |
-| 3             | 70         |
-| 4             | 75         |
-| 5             | 85         |
+<DataTable
+  data={[
+    { hoursStudied: 1, examScore: 55 },
+    { hoursStudied: 2, examScore: 65 },
+    { hoursStudied: 3, examScore: 70 },
+    { hoursStudied: 4, examScore: 75 },
+    { hoursStudied: 5, examScore: 85 },
+  ]}
+  title="Student Study Data"
+  description="Hours studied vs. exam scores for previous students"
+/>
+
+> **Key Concept**: Linear regression assumes a linear relationship between input and output variables. The model learns the best-fit line by minimizing the distance between predicted and actual values.
 
 ### Step 1: Loading and Exploring Data
 
-First, let's load this data and visualize it:
+Let's visualize this data to see if there's a relationship between study hours and exam scores:
+
+<Callout type="tip">
+In Python, you would load this data using:
 
 ```python
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Our dataset
 hours_studied = np.array([1, 2, 3, 4, 5])
 exam_scores = np.array([55, 65, 70, 75, 85])
 
-# Create a DataFrame for better visualization
 data = pd.DataFrame({
     'Hours Studied': hours_studied,
     'Exam Score': exam_scores
 })
-
-print(data)
-
-# Visualize the relationship
-plt.figure(figsize=(8, 6))
-plt.scatter(hours_studied, exam_scores, color='blue', s=100)
-plt.xlabel('Hours Studied')
-plt.ylabel('Exam Score')
-plt.title('Hours Studied vs Exam Score')
-plt.grid(True, alpha=0.3)
-plt.show()
 ```
+
+</Callout>
+
+<Chart
+  type="scatter"
+  data={[
+    { hours: 1, score: 55 },
+    { hours: 2, score: 65 },
+    { hours: 3, score: 70 },
+    { hours: 4, score: 75 },
+    { hours: 5, score: 85 },
+  ]}
+  xKey="hours"
+  yKey="score"
+  title="Hours Studied vs Exam Score"
+  description="Notice the positive linear relationship - perfect for linear regression!"
+  height={350}
+/>
 
 **What do you notice?** There appears to be a positive relationship: as study hours increase, exam scores tend to increase. This is a good candidate for linear regression!
 
-### Step 2: Building the Model with scikit-learn
+### Step 2: Building the Model
 
-Let's use scikit-learn to build our first linear regression model:
+Now let's fit a linear regression model to this data. Watch how the algorithm finds the best-fit line:
+
+<LinearRegressionDemo
+  data={[
+    { x: 1, y: 55 },
+    { x: 2, y: 65 },
+    { x: 3, y: 70 },
+    { x: 4, y: 75 },
+    { x: 5, y: 85 },
+  ]}
+  xLabel="Hours Studied"
+  yLabel="Exam Score"
+  title="Linear Regression Model"
+  description="The red line is the best-fit line calculated by the algorithm"
+  height={400}
+/>
+
+> **Tip**: The model learns two key parameters:
+>
+> - **Slope (coefficient)**: How much the exam score changes for each additional hour of study
+> - **Intercept**: The predicted score if someone studied 0 hours
+>
+> Our linear equation becomes: `Exam Score = (slope × Hours Studied) + intercept`
+
+### Step 3: Making Predictions
+
+Now we can predict scores for new students. For example, what score would a student who studied 6 hours get?
+
+<Callout type="tip">
+In scikit-learn, you would build this model using:
 
 ```python
 from sklearn.linear_model import LinearRegression
 
-# Reshape data for sklearn (needs 2D arrays)
-X = hours_studied.reshape(-1, 1)  # Features (hours studied)
-y = exam_scores                    # Target (exam scores)
+X = hours_studied.reshape(-1, 1)
+y = exam_scores
 
-# Create and train the model
 model = LinearRegression()
 model.fit(X, y)
 
 # Make predictions
-predictions = model.predict(X)
-
-print(f"Model Coefficient (slope): {model.coef_[0]:.2f}")
-print(f"Model Intercept: {model.intercept_:.2f}")
-```
-
-### Step 3: Understanding the Results
-
-The model learns two key parameters:
-- **Slope (coefficient)**: How much the exam score changes for each additional hour of study
-- **Intercept**: The predicted score if someone studied 0 hours
-
-Our linear equation becomes:
-```
-Exam Score = (slope × Hours Studied) + intercept
-```
-
-### Step 4: Making Predictions
-
-Now we can predict scores for new students:
-
-```python
-# Predict score for a student who studied 6 hours
 new_hours = np.array([[6]])
 predicted_score = model.predict(new_hours)
-
-print(f"Predicted score for 6 hours of study: {predicted_score[0]:.2f}")
-
-# Visualize the fitted line
-plt.figure(figsize=(8, 6))
-plt.scatter(hours_studied, exam_scores, color='blue', s=100, label='Actual Data')
-plt.plot(hours_studied, predictions, color='red', linewidth=2, label='Fitted Line')
-plt.scatter(6, predicted_score, color='green', s=150, marker='*',
-            label='Prediction for 6 hours', zorder=5)
-plt.xlabel('Hours Studied')
-plt.ylabel('Exam Score')
-plt.title('Linear Regression Model')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+print(f"Predicted score: {predicted_score[0]:.2f}")
 ```
 
-### Step 5: Evaluating the Model
+</Callout>
+
+<LinearRegressionDemo
+  data={[
+    { x: 1, y: 55 },
+    { x: 2, y: 65 },
+    { x: 3, y: 70 },
+    { x: 4, y: 75 },
+    { x: 5, y: 85 },
+  ]}
+  xLabel="Hours Studied"
+  yLabel="Exam Score"
+  title="Making Predictions"
+  description="The green star shows our prediction for a student who studied 6 hours"
+  showPrediction={true}
+  predictionValue={6}
+  height={400}
+/>
+
+### Step 4: Evaluating the Model
 
 How good is our model? Let's measure its performance:
 
@@ -171,6 +183,7 @@ print(f"R² Score: {r2:.3f}")
 ```
 
 **Understanding the Metrics:**
+
 - **MSE/RMSE**: Average squared/root squared difference between predictions and actual values (lower is better)
 - **MAE**: Average absolute difference (more interpretable than MSE)
 - **R²**: Proportion of variance explained by the model (0 to 1, higher is better)
@@ -184,65 +197,105 @@ Now that you understand the basics, let's apply linear regression to a more real
 ### The Dataset
 
 We'll use a dataset with multiple features:
-- Square footage
-- Number of bedrooms
-- Number of bathrooms
-- Age of the house
+
+<DataTable
+  data={[
+    { squareFeet: 1500, bedrooms: 3, bathrooms: 2, age: 10, price: 250000 },
+    { squareFeet: 1800, bedrooms: 3, bathrooms: 2, age: 5, price: 280000 },
+    { squareFeet: 2400, bedrooms: 4, bathrooms: 3, age: 2, price: 350000 },
+    { squareFeet: 2000, bedrooms: 3, bathrooms: 2.5, age: 8, price: 290000 },
+    { squareFeet: 3000, bedrooms: 5, bathrooms: 3, age: 1, price: 450000 },
+  ]}
+  title="House Price Dataset"
+  description="Sample data with multiple features for predicting house prices"
+/>
+
+Let's visualize the relationship between house size and price:
+
+<Chart
+  type="scatter"
+  data={[
+    { sqft: 1500, price: 250000 },
+    { sqft: 1800, price: 280000 },
+    { sqft: 2400, price: 350000 },
+    { sqft: 2000, price: 290000 },
+    { sqft: 3000, price: 450000 },
+  ]}
+  xKey="sqft"
+  yKey="price"
+  title="Square Feet vs Price"
+  description="House prices generally increase with size"
+  height={350}
+/>
 
 ### Multi-Feature Linear Regression
+
+With multiple features, we need to consider all of them together. Here's how you would implement this in Python:
 
 ```python
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score, mean_squared_error
+import numpy as np
+import pandas as pd
 
 # Sample house data
+
 data = {
-    'sqft': [1500, 1800, 2400, 2000, 3000, 1200, 2200, 2600],
-    'bedrooms': [3, 3, 4, 3, 5, 2, 4, 4],
-    'bathrooms': [2, 2, 3, 2.5, 3, 1, 2.5, 3],
-    'age': [10, 5, 2, 8, 1, 20, 4, 3],
-    'price': [250000, 280000, 350000, 290000, 450000, 180000, 320000, 380000]
+'sqft': [1500, 1800, 2400, 2000, 3000, 1200, 2200, 2600],
+'bedrooms': [3, 3, 4, 3, 5, 2, 4, 4],
+'bathrooms': [2, 2, 3, 2.5, 3, 1, 2.5, 3],
+'age': [10, 5, 2, 8, 1, 20, 4, 3],
+'price': [250000, 280000, 350000, 290000, 450000, 180000, 320000, 380000]
 }
 
 df = pd.DataFrame(data)
 
 # Separate features and target
+
 X = df[['sqft', 'bedrooms', 'bathrooms', 'age']]
 y = df['price']
 
 # Split into training and testing sets (80-20 split)
+
 X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
+X, y, test_size=0.2, random_state=42
 )
 
 # Scale features for better performance
+
 scaler = StandardScaler()
 X_train_scaled = scaler.fit_transform(X_train)
 X_test_scaled = scaler.transform(X_test)
 
 # Train the model
+
 model = LinearRegression()
 model.fit(X_train_scaled, y_train)
 
 # Make predictions
+
 y_pred = model.predict(X_test_scaled)
 
 # Evaluate
+
 print(f"R² Score: {r2_score(y_test, y_pred):.3f}")
 print(f"RMSE: ${np.sqrt(mean_squared_error(y_test, y_pred)):,.2f}")
 
 # Feature importance (coefficients)
-for feature, coef in zip(X.columns, model.coef_):
-    print(f"{feature}: ${coef:,.2f}")
+
+for feature, coef in zip(X.columns, model.coef\_):
+print(f"{feature}: ${coef:,.2f}")
 ```
 
-### Best Practices
-
-1. **Always split your data**: Use separate training and testing sets to evaluate performance
-2. **Scale your features**: Standardization helps when features have different units
-3. **Check for linearity**: Linear regression assumes a linear relationship
-4. **Watch for outliers**: They can significantly impact your model
-5. **Validate assumptions**: Check residuals for patterns
+> **Warning: Best Practices**
+>
+> 1. **Always split your data**: Use separate training and testing sets to evaluate performance
+> 2. **Scale your features**: Standardization helps when features have different units
+> 3. **Check for linearity**: Linear regression assumes a linear relationship
+> 4. **Watch for outliers**: They can significantly impact your model
+> 5. **Validate assumptions**: Check residuals for patterns
 
 ---
 
@@ -253,17 +306,20 @@ Now that you've built models, let's understand the mathematics that makes linear
 ### The Linear Model
 
 For a simple linear regression with one feature:
+
 ```
 y = β₀ + β₁x
 ```
 
 Where:
+
 - `y` is the predicted value
 - `x` is the input feature
 - `β₁` is the slope (coefficient)
 - `β₀` is the intercept
 
 For multiple features:
+
 ```
 y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
 ```
@@ -277,32 +333,21 @@ MSE = (1/n) × Σ(yᵢ - ŷᵢ)²
 ```
 
 Where:
+
 - `yᵢ` is the actual value
 - `ŷᵢ` is the predicted value
 - `n` is the number of samples
 
-This is also called the **cost function** or **loss function**. The goal is to find parameters (β₀, β₁, ...) that minimize this cost.
+> **Info**: MSE penalizes larger errors more heavily (due to the square), making it sensitive to outliers. This encourages the model to fit the overall pattern rather than individual anomalies.
 
-### Finding the Minimum: Two Approaches
-
-#### 1. Normal Equation (Closed-form Solution)
-
-For simple problems, we can calculate the optimal parameters directly:
-
-```
-β = (XᵀX)⁻¹Xᵀy
-```
-
-This gives us the exact solution in one step, but becomes computationally expensive for large datasets.
-
-#### 2. Gradient Descent (Iterative Solution)
+### Finding the Minimum: Gradient Descent
 
 For larger problems, we use **gradient descent**:
 
-1. Start with random parameters
-2. Calculate the gradient (direction of steepest increase)
-3. Take a step in the opposite direction
-4. Repeat until convergence
+1. **Initialize Parameters**: Start with random values for β₀, β₁, ... βₙ
+2. **Calculate Gradient**: Compute the direction of steepest increase in the cost function
+3. **Update Parameters**: Take a step in the opposite direction (downhill) to minimize cost
+4. **Repeat**: Continue until convergence (changes become very small)
 
 ```python
 # Simple gradient descent implementation
@@ -326,21 +371,9 @@ theta = gradient_descent(X_with_intercept, y)
 print(f"Learned parameters: {theta}")
 ```
 
-### Assumptions of Linear Regression
-
-Linear regression makes several important assumptions:
-
-1. **Linearity**: The relationship between X and y is linear
-2. **Independence**: Observations are independent of each other
-3. **Homoscedasticity**: Constant variance of errors
-4. **Normality**: Errors are normally distributed
-5. **No multicollinearity**: Features are not highly correlated
-
-**Important:** Always check these assumptions! If violated, your model may perform poorly or give misleading results.
-
 ---
 
-## Section 4: Conclusion
+## Conclusion
 
 ### What You've Learned
 
@@ -363,12 +396,14 @@ Congratulations! You've now mastered the fundamentals of linear regression:
 ### When to Use Linear Regression
 
 **Use linear regression when:**
+
 - You need to predict continuous values
 - The relationship between variables is roughly linear
 - You need an interpretable model
 - You have relatively clean data without too many outliers
 
 **Consider alternatives when:**
+
 - The relationship is highly non-linear (try polynomial regression or other algorithms)
 - You're doing classification (try logistic regression)
 - You have many outliers (try robust regression methods)
@@ -377,6 +412,7 @@ Congratulations! You've now mastered the fundamentals of linear regression:
 ### Next Steps
 
 Now that you understand linear regression, you're ready to explore:
+
 - **Polynomial Regression**: For non-linear relationships
 - **Ridge and Lasso Regression**: For regularization and feature selection
 - **Logistic Regression**: For classification problems

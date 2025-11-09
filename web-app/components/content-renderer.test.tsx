@@ -5,7 +5,7 @@ import type { Content } from '@/lib/content-loader';
 
 // Mock react-syntax-highlighter to avoid module resolution issues in tests
 vi.mock('react-syntax-highlighter', () => ({
-  Prism: ({ children, language }: any) => (
+  Prism: ({ children, language }: { children: React.ReactNode; language: string }) => (
     <pre>
       <code className={`language-${language}`}>{children}</code>
     </pre>

@@ -44,7 +44,7 @@ export default function ReadmePage() {
       <p><strong>Learn by Doing, Understand by Exploring</strong></p>
 
       <p>
-        This isn't your typical ML tutorial that starts with pages of mathematics and theory.
+        This isn&apos;t your typical ML tutorial that starts with pages of mathematics and theory.
         Instead, we believe the best way to learn machine learning is to:
       </p>
 
@@ -56,11 +56,11 @@ export default function ReadmePage() {
       </ol>
 
       <p>
-        Every tutorial follows the <strong>"From Application to Theory"</strong> approach, ensuring
-        you always understand <em>why</em> you're learning something before diving into the <em>how</em>.
+        Every tutorial follows the <strong>&quot;From Application to Theory&quot;</strong> approach, ensuring
+        you always understand <em>why</em> you&apos;re learning something before diving into the <em>how</em>.
       </p>
 
-      <h2>What You'll Learn</h2>
+      <h2>{`What You'll Learn`}</h2>
 
       <h3>Supervised Learning</h3>
 
@@ -163,7 +163,7 @@ cd machine-learning-intro`}</code></pre>
       <p><strong>For Complete Beginners:</strong></p>
       <ol>
         <li>Start with <code>foundations/programming-and-tools/</code> to get familiar with the essential libraries</li>
-        <li>Begin with <code>Linear Regression</code> - it's the foundation of many ML algorithms</li>
+        <li>Begin with <code>Linear Regression</code> - it&apos;s the foundation of many ML algorithms</li>
         <li>Move to <code>K-Nearest Neighbors</code> - simple yet powerful classification</li>
         <li>Progress to <code>Logistic Regression</code> - introduces probabilistic thinking</li>
         <li>Explore <code>Support Vector Machines</code> - more advanced classification</li>

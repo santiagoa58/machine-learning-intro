@@ -46,7 +46,7 @@ export default function LearningSciencePage() {
 
       <h2>Executive Summary</h2>
 
-      <p>This ML learning project demonstrates <strong>strong pedagogical foundations</strong> in several areas, particularly in reducing extraneous cognitive load through clear structure and the innovative "application-to-theory" approach. However, it has <strong>critical gaps</strong> in active learning, retrieval practice, and metacognition—all of which are essential for deep, durable learning according to cognitive science research.</p>
+      <p>This ML learning project demonstrates <strong>strong pedagogical foundations</strong> in several areas, particularly in reducing extraneous cognitive load through clear structure and the innovative &quot;application-to-theory&quot; approach. However, it has <strong>critical gaps</strong> in active learning, retrieval practice, and metacognition—all of which are essential for deep, durable learning according to cognitive science research.</p>
 
       <p><strong>Key Finding:</strong> The project currently functions as a <strong>demonstration</strong> rather than a <strong>learning experience</strong>. Learners passively read and observe, but rarely engage in the cognitive processes (retrieval, generation, reflection) that build durable understanding.</p>
 
@@ -66,7 +66,7 @@ export default function LearningSciencePage() {
       <ul>
         <li>Consistent section numbering (1-4) across all tutorials</li>
         <li>Clear table of contents with hierarchical structure</li>
-        <li>"What, Why, How" pattern for concept introduction</li>
+        <li>&quot;What, Why, How&quot; pattern for concept introduction</li>
         <li>Progressive complexity philosophy stated explicitly</li>
       </ul>
 
@@ -116,8 +116,8 @@ export default function LearningSciencePage() {
       <p><strong>✓ Conversational, accessible tone</strong></p>
       <ul>
         <li>Avoids unnecessary jargon</li>
-        <li>Uses analogies (gradient descent as "bumpy hill")</li>
-        <li>Acknowledges complexity ("This is the most mathematically intensive part")</li>
+        <li>Uses analogies (gradient descent as &quot;bumpy hill&quot;)</li>
+        <li>Acknowledges complexity (&quot;This is the most mathematically intensive part&quot;)</li>
       </ul>
 
       <hr />
@@ -137,18 +137,18 @@ export default function LearningSciencePage() {
       </ul>
 
       <p><strong>Why This Matters:</strong></p>
-      <p>Research by Roediger & Karpicke (2006) shows that <strong>retrieval practice is one of the most powerful learning techniques</strong>. Testing yourself is far more effective than re-reading for long-term retention. The "testing effect" shows that actively recalling information strengthens memory traces more than passive review.</p>
+      <p>Research by Roediger & Karpicke (2006) shows that <strong>retrieval practice is one of the most powerful learning techniques</strong>. Testing yourself is far more effective than re-reading for long-term retention. The &quot;testing effect&quot; shows that actively recalling information strengthens memory traces more than passive review.</p>
 
       <p><strong>Impact:</strong></p>
       <ul>
-        <li>Learners will experience <strong>"illusion of competence"</strong> (thinking they understand while reading, but unable to apply independently)</li>
+        <li>Learners will experience <strong>&quot;illusion of competence&quot;</strong> (thinking they understand while reading, but unable to apply independently)</li>
         <li>Poor long-term retention (forgetting within days/weeks)</li>
         <li>Inability to transfer knowledge to new problems</li>
       </ul>
 
       <p><strong>Evidence:</strong></p>
       <blockquote>
-        <p>"Taking a test on studied material can boost retention more than additional studying of that material" (Roediger & Butler, 2011)</p>
+        <p>&quot;Taking a test on studied material can boost retention more than additional studying of that material&quot; (Roediger & Butler, 2011)</p>
       </blockquote>
 
       <h3>2.2 Metacognition: Self-Assessment & Reflection</h3>
@@ -164,7 +164,7 @@ export default function LearningSciencePage() {
       </ul>
 
       <p><strong>Why This Matters:</strong></p>
-      <p>Metacognition—thinking about one's own thinking—is crucial for self-directed learning. Learners need to:</p>
+      <p>Metacognition—thinking about one&apos;s own thinking—is crucial for self-directed learning. Learners need to:</p>
       <ul>
         <li>Monitor their comprehension</li>
         <li>Identify gaps in understanding</li>
@@ -174,13 +174,13 @@ export default function LearningSciencePage() {
       <p><strong>Example of Missing Element:</strong></p>
       <p>After the gradient descent section, there should be prompts like:</p>
       <ul>
-        <li>"Before moving on, can you explain in your own words why we need gradient descent?"</li>
-        <li>"Common confusion: Do we calculate gradient descent once or multiple times?"</li>
+        <li>&quot;Before moving on, can you explain in your own words why we need gradient descent?&quot;</li>
+        <li>&quot;Common confusion: Do we calculate gradient descent once or multiple times?&quot;</li>
       </ul>
 
       <p><strong>Evidence:</strong></p>
       <blockquote>
-        <p>"Metacognitive skills are domain-general and can be taught, leading to improved learning outcomes" (Schraw & Dennison, 1994)</p>
+        <p>&quot;Metacognitive skills are domain-general and can be taught, leading to improved learning outcomes&quot; (Schraw & Dennison, 1994)</p>
       </blockquote>
 
       <h3>2.3 Worked Examples & Faded Guidance</h3>
@@ -191,10 +191,10 @@ export default function LearningSciencePage() {
       <ul>
         <li>Fully worked sklearn examples provided</li>
         <li>Then learners expected to use code independently</li>
-        <li>No intermediate "completion problems" or "faded examples"</li>
+        <li>No intermediate &quot;completion problems&quot; or &quot;faded examples&quot;</li>
       </ul>
 
-      <p><strong>What's Missing:</strong></p>
+      <p><strong>What&apos;s Missing:</strong></p>
       <p>According to the Worked Example Effect (Sweller et al., 1998), optimal learning follows this progression:</p>
       <ol>
         <li><strong>Fully worked example</strong> (provided ✓)</li>
@@ -228,16 +228,16 @@ predictions = model._____(X_test)  # What method makes predictions?`}</code></pr
         <li><strong>Interleaving:</strong> Mixing related topics improves discrimination and transfer</li>
       </ul>
 
-      <p><strong>What's Missing:</strong></p>
+      <p><strong>What&apos;s Missing:</strong></p>
       <ul>
         <li>KNN notebook should revisit train/test split from Linear Regression</li>
         <li>Later tutorials should include exercises mixing concepts</li>
-        <li>No cumulative "mixed practice" sections</li>
+        <li>No cumulative &quot;mixed practice&quot; sections</li>
       </ul>
 
       <p><strong>Evidence:</strong></p>
       <blockquote>
-        <p>"Spacing study sessions and interleaving different kinds of material improve retention and transfer more than massed practice" (Bjork & Bjork, 2011)</p>
+        <p>&quot;Spacing study sessions and interleaving different kinds of material improve retention and transfer more than massed practice&quot; (Bjork & Bjork, 2011)</p>
       </blockquote>
 
       <h3>2.5 Transfer of Learning</h3>
@@ -251,7 +251,7 @@ predictions = model._____(X_test)  # What method makes predictions?`}</code></pr
         <li>Limited practice applying to novel situations</li>
       </ul>
 
-      <p><strong>What's Missing:</strong></p>
+      <p><strong>What&apos;s Missing:</strong></p>
       <ul>
         <li>Multiple varied examples per algorithm</li>
         <li>Explicit abstraction of underlying principles</li>
@@ -264,7 +264,7 @@ predictions = model._____(X_test)  # What method makes predictions?`}</code></pr
         <li>Stock prices (provided ✓)</li>
         <li>Housing prices ✗</li>
         <li>Temperature prediction ✗</li>
-        <li>Then: "What do all these have in common? When should you use linear regression?"</li>
+        <li>Then: &quot;What do all these have in common? When should you use linear regression?&quot;</li>
       </ul>
 
       <h3>2.6 Motivation & Self-Efficacy (Bandura)</h3>
@@ -278,7 +278,7 @@ predictions = model._____(X_test)  # What method makes predictions?`}</code></pr
         <li>But no early wins or progressive success experiences</li>
       </ul>
 
-      <p><strong>What's Missing:</strong></p>
+      <p><strong>What&apos;s Missing:</strong></p>
       <ul>
         <li>Small, achievable challenges with immediate success</li>
         <li>Celebration of progress</li>
@@ -287,7 +287,7 @@ predictions = model._____(X_test)  # What method makes predictions?`}</code></pr
 
       <p><strong>Evidence:</strong></p>
       <blockquote>
-        <p>"Self-efficacy beliefs are better predictors of academic performance than past achievement" (Multon et al., 1991)</p>
+        <p>&quot;Self-efficacy beliefs are better predictors of academic performance than past achievement&quot; (Multon et al., 1991)</p>
       </blockquote>
 
       <hr />
@@ -441,7 +441,7 @@ No hints provided - you've got this!`}</code></pre>
 
       <p><strong>Priority: MEDIUM-HIGH</strong></p>
 
-      <p><strong>In KNN notebook, add "Review from Linear Regression":</strong></p>
+      <p><strong>In KNN notebook, add &quot;Review from Linear Regression&quot;:</strong></p>
 
       <pre><code>{`### 🔄 Review: Concepts from Linear Regression
 
@@ -481,7 +481,7 @@ This notebook mixes concepts from multiple tutorials to strengthen your understa
 
       <p><strong>Priority: MEDIUM-HIGH</strong></p>
 
-      <p><strong>Throughout tutorials, add "Common Pitfalls" sections:</strong></p>
+      <p><strong>Throughout tutorials, add &quot;Common Pitfalls&quot; sections:</strong></p>
 
       <pre><code>{`### ⚠️ Common Misconceptions
 
@@ -528,7 +528,7 @@ model.fit(X_train, y_train)
 - What surprised you?
 - What does this tell you about the model?`}</code></pre>
 
-      <p>This technique, called "generation effect," improves learning even when predictions are wrong.</p>
+      <p>This technique, called &quot;generation effect,&quot; improves learning even when predictions are wrong.</p>
 
       <h3>3.7 Enhance Transfer with Multiple Contexts</h3>
 
@@ -591,7 +591,7 @@ $$ MSE = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2 $$`}</code></pre>
 
       <p><strong>Priority: MEDIUM</strong></p>
 
-      <p><strong>Add optional "Deep Dive" and "Quick Review" paths:</strong></p>
+      <p><strong>Add optional &quot;Deep Dive&quot; and &quot;Quick Review&quot; paths:</strong></p>
 
       <pre><code>{`### Choose Your Path
 
@@ -673,7 +673,7 @@ We'll send gentle reminders when it's time to practice!`}</code></pre>
 
       <h3>4.3 Elaborative Interrogation Prompts</h3>
 
-      <p><strong>Throughout tutorials, add "Why?" questions:</strong></p>
+      <p><strong>Throughout tutorials, add &quot;Why?&quot; questions:</strong></p>
 
       <pre><code>{`### 🤔 Elaborative Interrogation
 
@@ -696,7 +696,7 @@ These questions help you connect concepts:
 
 </details>`}</code></pre>
 
-      <p><strong>Evidence:</strong> Elaborative interrogation ("why" questions) improves deep understanding (Pressley et al., 1987)</p>
+      <p><strong>Evidence:</strong> Elaborative interrogation (&quot;why&quot; questions) improves deep understanding (Pressley et al., 1987)</p>
 
       <h3>4.4 Peer Explanation Opportunities</h3>
 
@@ -788,7 +788,7 @@ Now the equation makes sense because you've experienced it concretely and visual
       <ol>
         <li><strong>Add retrieval practice to all existing tutorials</strong>
           <ul>
-            <li>Insert 3 "Quick Check" sections per tutorial</li>
+            <li>Insert 3 &quot;Quick Check&quot; sections per tutorial</li>
             <li>Add end-of-section self-tests</li>
             <li><strong>Estimated effort:</strong> 2-3 hours per tutorial</li>
             <li><strong>Impact:</strong> High - addresses the most critical gap</li>
@@ -796,15 +796,15 @@ Now the equation makes sense because you've experienced it concretely and visual
         </li>
         <li><strong>Add metacognitive prompts</strong>
           <ul>
-            <li>Before complex sections: "You should be able to..."</li>
-            <li>After complex sections: "Reflection checkpoint"</li>
+            <li>Before complex sections: &quot;You should be able to...&quot;</li>
+            <li>After complex sections: &quot;Reflection checkpoint&quot;</li>
             <li><strong>Estimated effort:</strong> 1 hour per tutorial</li>
             <li><strong>Impact:</strong> High - helps learners monitor understanding</li>
           </ul>
         </li>
         <li><strong>Address common misconceptions explicitly</strong>
           <ul>
-            <li>Add "Common Pitfalls" boxes</li>
+            <li>Add &quot;Common Pitfalls&quot; boxes</li>
             <li>Include 3-5 misconceptions per tutorial</li>
             <li><strong>Estimated effort:</strong> 1-2 hours per tutorial</li>
             <li><strong>Impact:</strong> High - prevents incorrect mental models</li>
@@ -827,7 +827,7 @@ Now the equation makes sense because you've experienced it concretely and visual
         </li>
         <li><strong>Add prediction prompts</strong>
           <ul>
-            <li>Before code cells: "What do you think will happen?"</li>
+            <li>Before code cells: &quot;What do you think will happen?&quot;</li>
             <li><strong>Estimated effort:</strong> 1 hour per tutorial</li>
             <li><strong>Impact:</strong> Medium-High - leverages generation effect</li>
           </ul>
@@ -1047,7 +1047,7 @@ Now the equation makes sense because you've experienced it concretely and visual
         </li>
         <li><strong>Peer Teaching:</strong>
           <ul>
-            <li>Roscoe, R. D., & Chi, M. T. (2007). Understanding tutor learning: Knowledge-building and knowledge-telling in peer tutors' explanations and questions. <em>Review of Educational Research, 77</em>(4), 534-574.</li>
+            <li>Roscoe, R. D., & Chi, M. T. (2007). Understanding tutor learning: Knowledge-building and knowledge-telling in peer tutors&apos; explanations and questions. <em>Review of Educational Research, 77</em>(4), 534-574.</li>
           </ul>
         </li>
         <li><strong>Dual Coding:</strong>
@@ -1064,7 +1064,7 @@ Now the equation makes sense because you've experienced it concretely and visual
 
       <h3>Summary of Key Findings</h3>
 
-      <p><strong>What's Working:</strong></p>
+      <p><strong>{`What's Working:`}</strong></p>
       <ul>
         <li>✅ Excellent structure and cognitive load management</li>
         <li>✅ Application-first approach is motivating</li>
@@ -1123,7 +1123,7 @@ Now the equation makes sense because you've experienced it concretely and visual
         <li>Which tutorials should be updated first?</li>
         <li>Who will implement the changes?</li>
         <li>How will we measure effectiveness?</li>
-        <li>What's a realistic timeline?</li>
+        <li>{`What's a realistic timeline?`}</li>
         <li>Do we need additional resources/training?</li>
       </ol>
 
