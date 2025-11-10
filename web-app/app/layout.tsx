@@ -3,6 +3,7 @@ import { clsx } from "clsx";
 import { GeistMono } from "geist/font/mono";
 import localFont from "next/font/local";
 import { SidebarLayout } from "@/components/layout/sidebar-layout";
+import { ModelPreloader } from "@/components/content/model-preloader";
 import { NAVIGATION_MODULES } from "@/lib/constants";
 import { WebVitals } from "./web-vitals";
 import "./globals.css";
@@ -77,6 +78,8 @@ export default function RootLayout({
     >
       <body>
         <div className="isolate">
+          {/* Preload AI model in background (hidden, low priority) */}
+          <ModelPreloader />
           <a
             href="#main-content"
             className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-blue-600 focus:text-white focus:rounded focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"

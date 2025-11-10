@@ -66,13 +66,15 @@ const nextConfig: NextConfig = {
               "default-src 'self'",
               // Note: In production, replace 'unsafe-eval' and 'unsafe-inline' with nonce-based CSP
               // Development mode requires 'unsafe-eval' for hot module replacement and 'unsafe-inline' for inline scripts
-              `script-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-eval' 'unsafe-inline'" : ""}`,
+              // Also allow CDN for ONNX runtime WASM files
+              `script-src 'self' https://cdn.jsdelivr.net ${process.env.NODE_ENV === 'development' ? "'unsafe-eval' 'unsafe-inline'" : ""}`,
               // Allow inline styles for Next.js fonts, CSS-in-JS, and development tools
               `style-src 'self' ${process.env.NODE_ENV === 'development' ? "'unsafe-inline'" : ""}`,
               "img-src 'self' data: https:",
               // Allow fonts from CDNs and data URIs
               "font-src 'self' data: https:",
-              "connect-src 'self' ws: wss:",
+              // Allow connections to HuggingFace for AI model downloads and CDN for WASM files
+              "connect-src 'self' ws: wss: https://huggingface.co https://*.huggingface.co https://*.hf.co https://cdn.jsdelivr.net",
               "frame-ancestors 'none'",
             ].join('; '),
           },

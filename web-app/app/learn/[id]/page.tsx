@@ -8,6 +8,7 @@ import {
   Breadcrumb,
 } from '@/components/layout/breadcrumbs';
 import { MDXContent } from '@/components/mdx-content';
+import { ClientOnlySummary } from '@/components/content/client-only-summary';
 import { ALGORITHMS } from '@/lib/constants';
 import { getAlgorithmContent } from '@/lib/content';
 
@@ -63,8 +64,17 @@ export default async function AlgorithmPage({ params }: { params: Promise<{ id: 
     >
       <article className="py-6 sm:py-8 lg:py-12">
         {algorithmContent ? (
-          // Render MDX content
-          <MDXContent content={algorithmContent.content} />
+          <>
+            {/* AI-generated summary - client-only to prevent hydration mismatch */}
+            <div className="max-w-none lg:max-w-3xl mx-auto mb-6">
+              <ClientOnlySummary
+                content={algorithmContent.content}
+                fallbackSummary={algorithmContent.summary}
+              />
+            </div>
+            {/* Render MDX content */}
+            <MDXContent content={algorithmContent.content} />
+          </>
         ) : (
           // Fallback to placeholder if content not available
           <div className="prose prose-base sm:prose-lg dark:prose-invert max-w-none lg:max-w-4xl mx-auto">

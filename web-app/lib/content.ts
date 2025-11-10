@@ -1,10 +1,12 @@
 import { promises as fs } from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { generateSummary, extractExcerpt } from './summarize';
 
 export interface AlgorithmContent {
   id: string;
   content: string;
+  summary: string | null;
   metadata: {
     title: string;
     description: string;
@@ -45,9 +47,13 @@ export async function getAlgorithmContent(algorithmId: string): Promise<Algorith
     // Parse frontmatter and content
     const { data, content } = matter(fileContent);
 
+    // Generate summary server-side (fast excerpt extraction, cached)
+    const { summary } = await generateSummary(content);
+
     return {
       id: algorithmId,
       content,
+      summary, // Simple excerpt, no AI blocking
       metadata: {
         title: data.title || '',
         description: data.description || '',

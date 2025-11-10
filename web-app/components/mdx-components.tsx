@@ -15,7 +15,7 @@ import { Highlight, themes } from "prism-react-renderer";
 
 // Import custom MDX components
 import { Callout } from "./mdx/callout";
-import { Chart } from "./mdx/chart";
+import { ChartLazy as Chart } from "./mdx/chart-lazy";
 import { CodePlayground } from "./mdx/code-playground";
 import { DataTable } from "./mdx/data-table";
 import { LinearRegressionDemo } from "./mdx/linear-regression-demo";
