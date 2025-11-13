@@ -69,7 +69,7 @@ export default async function AlgorithmPage({ params }: { params: Promise<{ id: 
             <div className="max-w-none lg:max-w-3xl mx-auto mb-6">
               <ClientOnlySummary
                 content={algorithmContent.content}
-                fallbackSummary={algorithmContent.summary}
+                fallbackSummary={algorithmContent.summary ?? undefined}
               />
             </div>
             {/* Render MDX content */}

@@ -1,5 +1,6 @@
 "use client";
 import { pipeline } from '@huggingface/transformers';
+import type { SummarizationPipeline } from './types/transformers';
 
 /**
  * Client-side summarization using transformers.js
@@ -13,8 +14,8 @@ interface SummaryCache {
 }
 
 // Global model singleton
-let modelPromise: Promise<any> | null = null;
-let model: any = null;
+let modelPromise: Promise<SummarizationPipeline> | null = null;
+let model: SummarizationPipeline | null = null;
 
 // Cache for summaries by content hash
 const summaryCache = new Map<string, SummaryCache>();
@@ -26,8 +27,8 @@ const summaryCache = new Map<string, SummaryCache>();
 export function preloadModel(): void {
   if (!modelPromise && !model) {
     modelPromise = pipeline('summarization').then(m => {
-      model = m;
-      return m;
+      model = m as unknown as SummarizationPipeline;
+      return model;
     });
   }
 }
@@ -36,15 +37,15 @@ export function preloadModel(): void {
  * Get the model, loading it if necessary
  * Returns a promise that resolves when the model is ready
  */
-async function getModel(): Promise<any> {
+async function getModel(): Promise<SummarizationPipeline> {
   if (model) {
     return model;
   }
 
   if (!modelPromise) {
     modelPromise = pipeline('summarization').then(m => {
-      model = m;
-      return m;
+      model = m as unknown as SummarizationPipeline;
+      return model;
     });
   }
 

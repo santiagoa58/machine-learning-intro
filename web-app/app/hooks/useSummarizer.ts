@@ -1,16 +1,17 @@
 "use client";
 import { pipeline } from "@huggingface/transformers";
 import { useCallback, useEffect, useState } from "react";
+import type { SummarizationPipeline } from "@/lib/types/transformers";
 
 // Singleton to ensure model loads only once across entire app
-let summarizerInstance: any = null;
-let loadingPromise: Promise<any> | null = null;
+let summarizerInstance: SummarizationPipeline | null = null;
+let loadingPromise: Promise<SummarizationPipeline> | null = null;
 
 /**
  * Loads the summarization model (singleton)
  * Uses distilbart-cnn-6-6 by default (smaller, faster)
  */
-async function loadSummarizer() {
+async function loadSummarizer(): Promise<SummarizationPipeline> {
   if (summarizerInstance) {
     return summarizerInstance;
   }
@@ -22,8 +23,8 @@ async function loadSummarizer() {
   loadingPromise = (async () => {
     try {
       const model = await pipeline("summarization");
-      summarizerInstance = model;
-      return model;
+      summarizerInstance = model as unknown as SummarizationPipeline;
+      return summarizerInstance;
     } catch (error) {
       console.error("❌ Failed to load summarization model:", error);
       loadingPromise = null; // Reset so we can retry

@@ -4,10 +4,12 @@ import { ContentLoader, ContentSchema, type FileSystem } from './content-loader'
 
 describe('ContentLoader', () => {
   let mockFileSystem: FileSystem;
+  let mockReadFile: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
+    mockReadFile = vi.fn();
     mockFileSystem = {
-      readFile: vi.fn(),
+      readFile: mockReadFile as FileSystem['readFile'],
     };
   });
 
@@ -129,17 +131,17 @@ describe('ContentLoader', () => {
         },
       };
 
-      vi.mocked(mockFileSystem.readFile).mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
       const result = await loader.loadContent('test-content');
 
       expect(result).toEqual(mockContent);
-      expect(mockFileSystem.readFile).toHaveBeenCalledWith('/content/test-content.json', 'utf-8');
+      expect(mockReadFile).toHaveBeenCalledWith('/content/test-content.json', 'utf-8');
     });
 
     it('should throw error when file not found', async () => {
-      mockFileSystem.readFile.mockRejectedValue(
+      mockReadFile.mockRejectedValue(
         Object.assign(new Error('File not found'), { code: 'ENOENT' })
       );
 
@@ -151,7 +153,7 @@ describe('ContentLoader', () => {
     });
 
     it('should throw error when JSON is invalid', async () => {
-      mockFileSystem.readFile.mockResolvedValue('{ invalid json }');
+      mockReadFile.mockResolvedValue('{ invalid json }');
 
       const loader = new ContentLoader('/content', mockFileSystem);
 
@@ -164,7 +166,7 @@ describe('ContentLoader', () => {
         // missing required fields
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(invalidContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(invalidContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
 
@@ -182,12 +184,12 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/custom/path', mockFileSystem);
       await loader.loadContent('custom');
 
-      expect(mockFileSystem.readFile).toHaveBeenCalledWith('/custom/path/custom.json', 'utf-8');
+      expect(mockReadFile).toHaveBeenCalledWith('/custom/path/custom.json', 'utf-8');
     });
   });
 
@@ -209,7 +211,7 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile
+      mockReadFile
         .mockResolvedValueOnce(JSON.stringify(content1))
         .mockResolvedValueOnce(JSON.stringify(content2));
 
@@ -230,7 +232,7 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile
+      mockReadFile
         .mockRejectedValueOnce(new Error('File not found'))
         .mockResolvedValueOnce(JSON.stringify(validContent));
 
@@ -259,7 +261,7 @@ describe('ContentLoader', () => {
         },
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
       const metadata = await loader.getContentMetadata('test');
@@ -284,7 +286,7 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
 
@@ -294,7 +296,7 @@ describe('ContentLoader', () => {
       await loader.loadContent('cached');
 
       // File should only be read once
-      expect(mockFileSystem.readFile).toHaveBeenCalledTimes(1);
+      expect(mockReadFile).toHaveBeenCalledTimes(1);
     });
 
     it('should clear cache when requested', async () => {
@@ -306,7 +308,7 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
 
@@ -315,7 +317,7 @@ describe('ContentLoader', () => {
       await loader.loadContent('test');
 
       // File should be read twice (once before clear, once after)
-      expect(mockFileSystem.readFile).toHaveBeenCalledTimes(2);
+      expect(mockReadFile).toHaveBeenCalledTimes(2);
     });
   });
 
@@ -326,7 +328,7 @@ describe('ContentLoader', () => {
       await expect(loader.loadContent('../../etc/passwd')).rejects.toThrow(
         'Invalid content ID: ../../etc/passwd (path traversal not allowed)'
       );
-      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+      expect(mockReadFile).not.toHaveBeenCalled();
     });
 
     it('should reject ID containing backslash', async () => {
@@ -335,7 +337,7 @@ describe('ContentLoader', () => {
       await expect(loader.loadContent('..\\..\\windows\\system32')).rejects.toThrow(
         'Invalid content ID: ..\\..\\windows\\system32 (path traversal not allowed)'
       );
-      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+      expect(mockReadFile).not.toHaveBeenCalled();
     });
 
     it('should reject ID containing parent directory reference', async () => {
@@ -344,7 +346,7 @@ describe('ContentLoader', () => {
       await expect(loader.loadContent('../secret')).rejects.toThrow(
         'Invalid content ID: ../secret (path traversal not allowed)'
       );
-      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+      expect(mockReadFile).not.toHaveBeenCalled();
     });
 
     it('should reject ID with special characters', async () => {
@@ -353,7 +355,7 @@ describe('ContentLoader', () => {
       await expect(loader.loadContent('test<script>')).rejects.toThrow(
         'Invalid content ID: test<script> (only alphanumeric, underscore, and hyphen allowed)'
       );
-      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+      expect(mockReadFile).not.toHaveBeenCalled();
     });
 
     it('should reject ID with null byte', async () => {
@@ -362,7 +364,7 @@ describe('ContentLoader', () => {
       await expect(loader.loadContent('test\0file')).rejects.toThrow(
         'Invalid content ID: test\0file (only alphanumeric, underscore, and hyphen allowed)'
       );
-      expect(mockFileSystem.readFile).not.toHaveBeenCalled();
+      expect(mockReadFile).not.toHaveBeenCalled();
     });
 
     it('should allow valid alphanumeric IDs with hyphens and underscores', async () => {
@@ -374,13 +376,13 @@ describe('ContentLoader', () => {
         content: { sections: [] },
       };
 
-      mockFileSystem.readFile.mockResolvedValue(JSON.stringify(mockContent));
+      mockReadFile.mockResolvedValue(JSON.stringify(mockContent));
 
       const loader = new ContentLoader('/content', mockFileSystem);
       const result = await loader.loadContent('valid-id_123');
 
       expect(result).toEqual(mockContent);
-      expect(mockFileSystem.readFile).toHaveBeenCalledWith('/content/valid-id_123.json', 'utf-8');
+      expect(mockReadFile).toHaveBeenCalledWith('/content/valid-id_123.json', 'utf-8');
     });
   });
 });

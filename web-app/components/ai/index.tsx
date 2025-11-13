@@ -32,7 +32,8 @@
  */
 
 // Client-side interactive components
-export { ContentAssistant } from "./content-assistant";
+// TODO: Re-enable when content-assistant component is implemented
+// export { ContentAssistant } from "./content-assistant";
 
 // Low-level hooks for custom implementations
 export { useSummarizer, summarizeText } from "@/app/hooks/useSummarizer";

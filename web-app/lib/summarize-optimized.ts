@@ -1,5 +1,7 @@
 "use client";
 import { pipeline, env } from '@huggingface/transformers';
+import type { SummarizationPipeline } from './types/transformers';
+import './types/transformers'; // Import for Navigator.gpu type extension
 
 /**
  * Optimized client-side summarization with streaming
@@ -8,12 +10,12 @@ import { pipeline, env } from '@huggingface/transformers';
 
 // Enable WebGPU if available
 if (typeof window !== 'undefined' && navigator.gpu) {
-  env.backends.onnx.wasm.proxy = false;
+  env.backends.onnx.wasm!.proxy = false;
 }
 
 // Singleton model
-let modelPromise: Promise<any> | null = null;
-let model: any = null;
+let modelPromise: Promise<SummarizationPipeline> | null = null;
+let model: SummarizationPipeline | null = null;
 
 // Summary cache
 const summaryCache = new Map<string, string>();
@@ -34,7 +36,7 @@ function hashContent(content: string): string {
 /**
  * Get the summarization model
  */
-async function getModel(): Promise<any> {
+async function getModel(): Promise<SummarizationPipeline> {
   if (model) return model;
 
   if (!modelPromise) {
@@ -46,8 +48,8 @@ async function getModel(): Promise<any> {
         dtype: 'fp32', // Use fp32 for better quality
       }
     ).then(m => {
-      model = m;
-      return m;
+      model = m as unknown as SummarizationPipeline;
+      return model;
     });
   }
 
