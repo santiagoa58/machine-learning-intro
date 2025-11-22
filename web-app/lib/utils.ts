@@ -33,3 +33,7 @@ export function formatNumber<T = unknown>(
   const value = parseNumber(args);
   return value != null ? formatter.format(value) : undefined;
 }
+
+export function filterJoin(joiner: string, ...args: (string | undefined | null)[]) {
+  return args.filter(Boolean).join(joiner);
+}

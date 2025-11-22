@@ -1,36 +1,39 @@
+import { filterJoin } from "@/lib/utils";
 import { useMemo } from "react";
 
 interface PerformanceEndOptions {
   error?: unknown;
   detail?: object;
+  subName?: string;
 }
 
-export const usePerformanceMeasure = (name: string) => {
-  return useMemo(
-    () => ({
-      start() {
-        return performance.mark(`${name}-start`);
-      },
-      end({ error, detail }: PerformanceEndOptions = {}) {
-        if (error) {
-          const message =
-            error instanceof Error ? error.message : String(error);
-          console.error(`Error during ${name}:`, message);
-          performance.mark(`${name}-end-error`);
-          return performance.measure(name, {
-            start: `${name}-start`,
-            end: `${name}-end-error`,
-            detail: { error: message, ...detail },
-          });
-        }
-        performance.mark(`${name}-end`);
+export const createPerformanceMeasure = (name: string) => {
+  return {
+    start(subName?: string) {
+      return performance.mark(`${filterJoin("-", name, subName)}-start`);
+    },
+    end({ subName, error, detail }: PerformanceEndOptions = {}) {
+      const markName = filterJoin("-", name, subName);
+      if (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`Error during ${name}:`, message);
+        performance.mark(`${markName}-end-error`);
         return performance.measure(name, {
-          start: `${name}-start`,
-          end: `${name}-end-error`,
-          detail: detail,
+          start: `${markName}-start`,
+          end: `${markName}-end-error`,
+          detail: { error: message, ...detail },
         });
-      },
-    } as const),
-    [name]
-  );
+      }
+      performance.mark(`${markName}-end`);
+      return performance.measure(name, {
+        start: `${markName}-start`,
+        end: `${markName}-end`,
+        detail: detail,
+      });
+    },
+  } as const;
+};
+
+export const usePerformanceMeasure = (name: string) => {
+  return useMemo(() => createPerformanceMeasure(name), [name]);
 };
