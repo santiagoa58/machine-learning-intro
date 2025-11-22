@@ -19,7 +19,7 @@ google-auth-oauthlib==1.0.0
 googleapis-common-protos==1.59.0
 html5lib==1.1
 httplib2==0.22.0
-idna==3.4
+idna==3.7
 iniconfig==2.0.0
 isoduration==20.11.0
 jmespath==1.0.1
